@@ -1,7 +1,8 @@
 This project contains content of OM materials prepared in 6th grade by JAMS team
 
 Important Links: 
-- Problem synopsis: 
+- script link - https://docs.google.com/document/d/1JxKIfWj3N9KZEizehzcbq7X-tysS0vd51kjCoUv44bA/edit?usp=sharing
+- Problem description : https://docs.google.com/document/d/1Ie7_fOQrRDF4WjoIVcHpkXzcpGhcV1nYG2XSeN1NyA0/edit?usp=sharing 
 - Problem 2 
 	- description - https://www.odysseyofthemind.com/problem-2/ 
 	- Youtube link - https://youtu.be/DraWhrHn-r8

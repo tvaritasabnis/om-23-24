@@ -3,10 +3,10 @@
 //************************************
 //user defined function declarations
 //************************************
-void moveLeft(int degrees); 
-void moveRight(int degrees); 
-void moveUp(int degrees); 
-void moveDown(int degrees); 
+void moveLeft(Servo s, int degrees); 
+void moveRight(Servo s, int degrees); 
+void moveUp(Servo s, int degrees); 
+void moveDown(Servo s, int degrees); 
 
 
 //************************************
@@ -42,20 +42,24 @@ int clawPin2=10;
 //user defined function definitions
 //************************************
 
-void moveLeft(int degrees){
+void moveLeft(Servo s, int degrees){
   Serial.println("Moving Left by .. " + degrees);
+  s.write(degrees);
 }
 
-void moveRight(int degrees){
+void moveRight(Servo s, int degrees){
   Serial.println("Moving Right by .. " + degrees);
+  s.write(degrees);
 }
 
-void moveUp(int degrees){
+void moveUp(Servo s, int degrees){
   Serial.println("Moving Up by .. " + degrees);
+  s.write(degrees);
 }
 
-void moveDown(int degrees){
+void moveDown(Servo s, int degrees){
   Serial.println("Moving Down by .. " + degrees);
+  s.write(degrees);
 }
 
 
@@ -82,6 +86,18 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  // put your main code here, to run repeatedly:  
+  moveLeft(shoulderMotor1,10);
+  moveRight(shoulderMotor2,20);
+  
+  moveUp(armMotor1,30);
+  moveDown(armMotor1,40);
+  
+  moveLeft(wristMotor1,50);
+  moveRight(wristMotor2,60);
+  
+  moveUp(clawMotor1,70);
+  moveDown(clawMotor1,80);
+  
 }
+

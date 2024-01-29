@@ -10,3 +10,10 @@ Important Links:
 - Useful playlist of youtube tutorial for Audrino 
 	- https://www.youtube.com/watch?v=JnJIKX5J0Cc&list=PLwWF-ICTWmB7-b9bsE3UcQzz-7ipI5tbR 
 	- https://www.youtube.com/playlist?list=PL4B0LEKY-jrT_fjOGkX_NZ52ZHZf8s9S-
+	
+- Audrino 
+	- Languange reference - https://www.arduino.cc/reference/en/	
+	- Built-in example docs - https://docs.arduino.cc/built-in-examples/
+	- IDE - ver 2.2.1 (https://www.arduino.cc/en/software) 
+	- IDE quick start guide - https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/#overview
+	

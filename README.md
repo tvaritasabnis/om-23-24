@@ -19,6 +19,6 @@ Important Links:
 	- IDE quick start guide - https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/#overview
 
 - Online Simulators
-  	- TinkerCad initial designs
-  		- https://www.tinkercad.com/things/dQVdRoXqoLA-frantic-leelo/editel?sharecode=PLg8-u6_7ZwOGapRD52Mk5uGtj0Z1Tlxu8ztwQ2NqiU
-  	   	-  
+  	- TinkerCad initial designs for Arm operations
+  		- Just servo motors  https://www.tinkercad.com/things/dQVdRoXqoLA-frantic-leelo/editel?sharecode=PLg8-u6_7ZwOGapRD52Mk5uGtj0Z1Tlxu8ztwQ2NqiU
+  	   	- With button switch - https://www.tinkercad.com/things/dkB4eJdbo1z-myfirst-servo-motor-/editel?returnTo=%2Fthings%2FdkB4eJdbo1z-myfirst-servo-motor&sharecode=PUw60IigwVMvEWpp7QKTvbLgsyfi1n9JYgfzctQrWx8

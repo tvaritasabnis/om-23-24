@@ -17,4 +17,8 @@ Important Links:
 	- Built-in example docs - https://docs.arduino.cc/built-in-examples/
 	- IDE - ver 2.2.1 (https://www.arduino.cc/en/software) 
 	- IDE quick start guide - https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/#overview
-	
+
+- Online Simulators
+  	- TinkerCad initial designs
+  		- https://www.tinkercad.com/things/dQVdRoXqoLA-frantic-leelo/editel?sharecode=PLg8-u6_7ZwOGapRD52Mk5uGtj0Z1Tlxu8ztwQ2NqiU
+  	   	-  

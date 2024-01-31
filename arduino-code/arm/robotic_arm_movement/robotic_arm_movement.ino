@@ -12,31 +12,26 @@ void moveDown(Servo s, int degrees);
 //************************************
 //user defined variables
 //************************************
-//Shoulder Servo Motors and their corresponding pin location 
-Servo shoulderMotor1;
-Servo shoulderMotor2;
-int shoulderPin1=3;
-int shoulderPin2=4;
+//up/down
+Servo sMotor1;
+int servoPin1=3;
 
-//Shoulder Arm Motors and their corresponding pin location 
-Servo armMotor1;
-Servo armMotor2;
-int armPin1=5;
-int armPin2=6;
+//left/right
+Servo sMotor2;
+int servoPin2=4;
 
-//Shoulder wrist Motors and their corresponding pin location 
-Servo wristMotor1;
-Servo wristMotor2;
-int wristPin1=7;
-int wristPin2=8;
+//wrist
+Servo sMotor3;
+int servoPin3=5;
 
-//Shoulder claw Motors and their corresponding pin location 
-Servo clawMotor1;
-Servo clawMotor2;
-int clawPin1=9;
-int clawPin2=10;
+//claw
+Servo sMotor4;
+int servoPin4=6;
 
-
+int BUTTON_PIN=2;
+int counter=0;
+int buttonState;  // variable for reading the pushbutton status
+bool isPressed=false;
 
 //************************************
 //user defined function definitions
@@ -64,6 +59,9 @@ void moveDown(Servo s, int degrees){
 
 
 
+//************************************
+//Main Program
+//************************************
 
 
 void setup() {
@@ -71,33 +69,55 @@ void setup() {
   Serial.begin(9600);
   
   //Attach Servo motors
-  shoulderMotor1.attach(shoulderPin1);
-  shoulderMotor2.attach(shoulderPin2);
-
-  armMotor1.attach(armPin1);
-  armMotor2.attach(armPin2);
-
-  wristMotor1.attach(wristPin1);
-  wristMotor2.attach(wristPin2);
+  sMotor1.attach(servoPin1);
+  sMotor2.attach(servoPin2);
+  sMotor3.attach(servoPin3);
+  sMotor4.attach(servoPin4);
   
-  clawMotor1.attach(clawPin1);
-  clawMotor2.attach(clawPin2);
+  // initialize the pushbutton pin as an input:
+  pinMode(BUTTON_PIN, INPUT);
 
 }
 
 void loop() {
   // put your main code here, to run repeatedly:  
-  moveLeft(shoulderMotor1,10);
-  moveRight(shoulderMotor2,20);
   
-  moveUp(armMotor1,30);
-  moveDown(armMotor1,40);
+  // read the state of the pushbutton value:
+  buttonState = digitalRead(BUTTON_PIN);
+  //  Serial.println( buttonState );
   
-  moveLeft(wristMotor1,50);
-  moveRight(wristMotor2,60);
-  
-  moveUp(clawMotor1,70);
-  moveDown(clawMotor1,80);
-  
+  if (buttonState == HIGH){
+    counter++;
+    delay(300);
+    isPressed=true;
+  }
+  //  Serial.println( "Press Count : " + press ); 
+  //delay(300);
+  if (isPressed){ 
+    Serial.println( counter ); 
+    if (counter == 1){
+      moveLeft(sMotor1,10);
+      moveRight(sMotor2,10);
+      moveUp(sMotor3,10);
+      moveDown(sMotor4,10);
+    }else if (counter == 2){
+      moveLeft(sMotor1,40);
+      moveRight(sMotor2,40);
+      moveUp(sMotor3,40);
+      moveDown(sMotor4,40);
+    }else if (counter == 3){
+      moveLeft(sMotor1,90);
+      moveRight(sMotor2,90);
+      moveUp(sMotor3,90);
+      moveDown(sMotor4,90);
+    }else if (counter >= 4){
+      moveLeft(sMotor1,0);
+      moveRight(sMotor2,0);
+      moveUp(sMotor3,0);
+      moveDown(sMotor4,0);
+      counter=0;
+    }
+    isPressed=false;
+  }
 }
 

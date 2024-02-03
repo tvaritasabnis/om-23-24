@@ -47,7 +47,7 @@ bool isGoalAchieved=false;
 /* This function is hardcoded to always close the claw.*/
 void clawClose(Servo s){
   Serial.println("Closing the claw");
-  s.write(90);
+  s.write(180);
 }
 
 /* This function is hardcoded to always open the claw.*/
@@ -104,12 +104,37 @@ void loop() {
   // put your main code here, to run repeatedly:  
 
 
-  if(!isGoalAchieved && counter < 10){
-    counter = counter+1;
+  if(!isGoalAchieved){
+    //counter = counter+1;
+    delay(3000);
     clawClose(claw);
     delay(3000);
     clawOpen(claw);
-    Serial.println("Finished working on motor .. counter =" + counter);
+    delay(3000);
+
+
+    delay(3000);
+    clawClose(claw);
+    delay(3000);
+    clawOpen(claw);
+    delay(3000);
+
+
+    delay(3000);
+    clawClose(claw);
+    delay(3000);
+    clawOpen(claw);
+    delay(3000);
+
+
+    delay(3000);
+    clawClose(claw);
+    delay(3000);
+    clawOpen(claw);
+    delay(3000);
+     isGoalAchieved=true;
+     
+    Serial.println("Finished working on motor .. counter = " + counter);
   }else{
     isGoalAchieved=true;
     Serial.println("Finished working on motor .. Goal achieved");

@@ -44,16 +44,19 @@ bool isGoalAchieved=false;
 //user defined function definitions
 //************************************
 
-/* This function is hardcoded to always close the claw.*/
+/* 
+This function is hardcoded to always close the claw.
+Claw close is the neutral position for servo motor with default angle of 93
+*/
 void clawClose(Servo s){
   Serial.println("Closing the claw");
-  s.write(180);
+  s.write(95);
 }
 
 /* This function is hardcoded to always open the claw.*/
 void clawOpen(Servo s){
   Serial.println(" Opening the claw ");
-  s.write(0);
+  s.write(65);
 }
 
 
@@ -103,41 +106,60 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:  
 
-
+  
   if(!isGoalAchieved){
+
+  Serial.println(claw.read());
+  delay(3000);
+  clawOpen(claw);
+  delay(3000);
+  clawClose(claw);
+  delay(3000);
+  // claw.write(0);
+  // delay(3000);
+
+  // Serial.println(claw.read());
+  // delay(3000);
+
+  // claw.write(180);
+  // delay(3000);
+  
+  // claw.write(90);
+  // delay(3000);
+    
     //counter = counter+1;
-    delay(3000);
-    clawClose(claw);
-    delay(3000);
-    clawOpen(claw);
-    delay(3000);
+    // delay(3000);
+    // clawClose(claw);
+    // delay(3000);
+    // clawOpen(claw);
+    // delay(3000);
 
 
-    delay(3000);
-    clawClose(claw);
-    delay(3000);
-    clawOpen(claw);
-    delay(3000);
+    // delay(3000);
+    // clawClose(claw);
+    // delay(3000);
+    // clawOpen(claw);
+    // delay(3000);
 
 
-    delay(3000);
-    clawClose(claw);
-    delay(3000);
-    clawOpen(claw);
-    delay(3000);
+    // delay(3000);
+    // clawClose(claw);
+    // delay(3000);
+    // clawOpen(claw);
+    // delay(3000);
 
 
-    delay(3000);
-    clawClose(claw);
-    delay(3000);
-    clawOpen(claw);
-    delay(3000);
-     isGoalAchieved=true;
+    // delay(3000);
+    // clawClose(claw);
+    // delay(3000);
+    // clawOpen(claw);
+    // delay(3000);
+     isGoalAchieved=false;
      
-    Serial.println("Finished working on motor .. counter = " + counter);
+    // Serial.println("Finished working on motor .. counter = " + counter);
   }else{
     isGoalAchieved=true;
-    Serial.println("Finished working on motor .. Goal achieved");
+    Serial.println("Finished working on motor .. Goal achieved - XXX");
   }
 
   

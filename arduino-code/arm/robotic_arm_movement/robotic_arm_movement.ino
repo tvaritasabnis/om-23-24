@@ -37,6 +37,9 @@ int counter=0;
 int switchState;  // variable for reading the pushbutton status
 bool isPressed=false;
 
+bool isGoalAchieved=false;
+
+
 //************************************
 //user defined function definitions
 //************************************
@@ -100,16 +103,16 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:  
 
-  boolean isGoalAchieved=false;
 
-  if(!isGoalAchieved){
+  if(!isGoalAchieved && counter < 10){
+    counter = counter+1;
     clawClose(claw);
     delay(3000);
     clawOpen(claw);
-
-    Serial.println("Finished working on motor .. Goal achieved");
-
+    Serial.println("Finished working on motor .. counter =" + counter);
+  }else{
     isGoalAchieved=true;
+    Serial.println("Finished working on motor .. Goal achieved");
   }
 
   

@@ -3,32 +3,34 @@
 //************************************
 //user defined function declarations
 //************************************
-void moveLeft(Servo s, int degree); 
-void moveRight(Servo s, int degree); 
-void moveUp(Servo s, int degree); 
-void moveDown(Servo s, int degree); 
-void clawOpen(Servo s); 
-void clawClose(Servo s); 
-
+void moveLeftRight(int degree); 
+void moveUpDown(int degree); 
+void clawOpen(); 
+void clawClose(); 
+void rotate(int degree);
+void shortDelay();
+void longDelay();
 
 //************************************
 //user defined variables
 //************************************
-//up/down
-Servo clawUpDown;
-int clawUpDownPin=3;
 
 //left/right
-Servo clawLeftRight;
-int clawLeftRightPin=4;
+Servo sLeftRight;
+int sLeftRightPin=4;
+
+//up/down
+Servo sUpDown;
+int sUpDownPin=5;
+
 
 //wrist
-Servo wristMotor;
-int wristPin=5;
+Servo sWrist;
+int sWristPin=6;
 
 //claw
-Servo claw;
-int clawPin=9;
+Servo sClaw;
+int sClawPin=7;
 
 //switch to control the flow
 int switchButtonPin=2;
@@ -48,39 +50,41 @@ bool isGoalAchieved=false;
 This function is hardcoded to always close the claw.
 Claw close is the neutral position for servo motor with default angle of 93
 */
-void clawClose(Servo s){
+void clawClose(){
   Serial.println("Closing the claw");
-  s.write(95);
+  sClaw.write(95);
 }
 
 /* This function is hardcoded to always open the claw.*/
-void clawOpen(Servo s){
+void clawOpen(){
   Serial.println(" Opening the claw ");
-  s.write(65);
+  sClaw.write(65);
 }
 
 
-void moveLeft(Servo s, int degree){
-  Serial.println("Moving Left by .. " + degree);
-  s.write(degree);
+void moveLeftRight(int degree){
+  Serial.println("Moving Left/Right by .. " + degree);
+  sLeftRight.write(degree);
 }
 
-void moveRight(Servo s, int degree){
-  Serial.println("Moving Right by .. " + degree);
-  s.write(degree);
-}
 
-void moveUp(Servo s, int degree){
+void moveUpDown(int degree){
   Serial.println("Moving Up by .. " + degree);
-  s.write(degree);
+  sUpDown.write(degree);
 }
 
-void moveDown(Servo s, int degree){
-  Serial.println("Moving Down by .. " + degree);
-  s.write(degree);
+void rotate(int degree){
+  Serial.println("Rotating by .. " + degree);
+  sWrist.write(degree);
 }
 
+void shortDelay(){
+  delay(300);
+}
 
+void longDelay(){
+  delay(5000);
+}
 
 //************************************
 //Main Program
@@ -92,10 +96,11 @@ void setup() {
   Serial.begin(9600);
   
   //Attach Servo motors
-  // clawUpDown.attach(clawUpDownPin);
-  // clawLeftRight.attach(clawLeftRightPin);
-  // wristMotor.attach(wristPin);
-  claw.attach(clawPin);
+  sUpDown.attach(sUpDownPin);
+  // sLeftRight.attach(sLeftRightPin);
+   sWrist.attach(sWristPin);
+  //sClaw.attach(sClawPin);
+
   
     // initialize the pushbutton pin as an input:
   // pinMode(switchButtonPin, INPUT);
@@ -107,54 +112,59 @@ void loop() {
   // put your main code here, to run repeatedly:  
 
   
-  if(!isGoalAchieved){
+  if(isGoalAchieved == false){
 
-  Serial.println(claw.read());
-  delay(3000);
-  clawOpen(claw);
-  delay(3000);
-  clawClose(claw);
-  delay(3000);
-  // claw.write(0);
+    Serial.println(sClaw.read());
+    Serial.println(sUpDown.read());
+    // longDelay();
+    // clawOpen();
+    // longDelay();
+    // clawClose();
+    longDelay();
+    moveUpDown(120);
+    longDelay();
+    moveUpDown(80);
+    longDelay();
+  // sClaw.write(0);
   // delay(3000);
 
-  // Serial.println(claw.read());
+  // Serial.println(sClaw.read());
   // delay(3000);
 
-  // claw.write(180);
+  // sClaw.write(180);
   // delay(3000);
   
-  // claw.write(90);
+  // sClaw.write(90);
   // delay(3000);
     
     //counter = counter+1;
     // delay(3000);
-    // clawClose(claw);
+    // clawClose(sClaw);
     // delay(3000);
-    // clawOpen(claw);
-    // delay(3000);
-
-
-    // delay(3000);
-    // clawClose(claw);
-    // delay(3000);
-    // clawOpen(claw);
+    // clawOpen(sClaw);
     // delay(3000);
 
 
     // delay(3000);
-    // clawClose(claw);
+    // clawClose(sClaw);
     // delay(3000);
-    // clawOpen(claw);
+    // clawOpen(sClaw);
     // delay(3000);
 
 
     // delay(3000);
-    // clawClose(claw);
+    // clawClose(sClaw);
     // delay(3000);
-    // clawOpen(claw);
+    // clawOpen(sClaw);
     // delay(3000);
-     isGoalAchieved=false;
+
+
+    // delay(3000);
+    // clawClose(sClaw);
+    // delay(3000);
+    // clawOpen(sClaw);
+    // delay(3000);
+    isGoalAchieved=true;
      
     // Serial.println("Finished working on motor .. counter = " + counter);
   }else{
@@ -177,25 +187,25 @@ void loop() {
   // if (isPressed){ 
   //   Serial.println( counter ); 
   //   if (counter == 1){
-  //     moveLeft(clawUpDown,10);
-  //     moveRight(clawLeftRight,10);
+  //     moveLeft(sUpDown,10);
+  //     moveRight(sLeftRight,10);
   //     moveUp(wristMotor,10);
-  //     moveDown(claw,10);
+  //     moveDown(sClaw,10);
   //   }else if (counter == 2){
-  //     moveLeft(clawUpDown,40);
-  //     moveRight(clawLeftRight,40);
+  //     moveLeft(sUpDown,40);
+  //     moveRight(sLeftRight,40);
   //     moveUp(wristMotor,40);
-  //     moveDown(claw,40);
+  //     moveDown(sClaw,40);
   //   }else if (counter == 3){
-  //     moveLeft(clawUpDown,90);
-  //     moveRight(clawLeftRight,90);
+  //     moveLeft(sUpDown,90);
+  //     moveRight(sLeftRight,90);
   //     moveUp(wristMotor,90);
-  //     moveDown(claw,90);
+  //     moveDown(sClaw,90);
   //   }else if (counter >= 4){
-  //     moveLeft(clawUpDown,0);
-  //     moveRight(clawLeftRight,0);
+  //     moveLeft(sUpDown,0);
+  //     moveRight(sLeftRight,0);
   //     moveUp(wristMotor,0);
-  //     moveDown(claw,0);
+  //     moveDown(sClaw,0);
   //     counter=0;
   //   }
   //   isPressed=false;

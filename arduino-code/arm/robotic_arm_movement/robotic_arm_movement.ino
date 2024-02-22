@@ -1,13 +1,17 @@
 #include<Servo.h>
 
+
+
 //************************************
 //user defined function declarations
 //************************************
 void moveLeftRight(int degree); 
 void moveUpDown(int degree); 
+void moveFrontBack(int degree); 
 void clawOpen(); 
 void clawClose(); 
 void rotate(int degree);
+void moveServo(Servo s, int degree);
 void shortDelay();
 void longDelay();
 
@@ -19,18 +23,22 @@ void longDelay();
 Servo sLeftRight;
 int sLeftRightPin=4;
 
+//front-back
+Servo sFrontBack;
+int sFrontBackPin=5;
+
 //up/down
 Servo sUpDown;
-int sUpDownPin=5;
+int sUpDownPin=6;
 
 
 //wrist
 Servo sWrist;
-int sWristPin=6;
+int sWristPin=7;
 
 //claw
 Servo sClaw;
-int sClawPin=7;
+int sClawPin=8;
 
 //switch to control the flow
 int switchButtonPin=2;
@@ -38,9 +46,12 @@ int switchButtonPin=2;
 int counter=0;
 int switchState;  // variable for reading the pushbutton status
 bool isPressed=false;
-
 bool isGoalAchieved=false;
 
+//Constants
+int SHORT_DELAY=250;
+int LONG_DELAY=5000;
+int INITIAL_POS=90;
 
 //************************************
 //user defined function definitions
@@ -64,26 +75,100 @@ void clawOpen(){
 
 void moveLeftRight(int degree){
   Serial.println("Moving Left/Right by .. " + degree);
-  sLeftRight.write(degree);
+  moveServo(sLeftRight, degree);
 }
 
+void moveFrontBack(int degree){
+  Serial.println("Moving Front/Back by .. " + degree);
+  moveServo(sFrontBack, degree);
+}
 
 void moveUpDown(int degree){
   Serial.println("Moving Up by .. " + degree);
-  sUpDown.write(degree);
+  moveServo(sUpDown, degree);
 }
 
 void rotate(int degree){
   Serial.println("Rotating by .. " + degree);
-  sWrist.write(degree);
+    moveServo(sWrist, degree);
 }
 
 void shortDelay(){
-  delay(300);
+  delay(SHORT_DELAY);
 }
 
 void longDelay(){
-  delay(5000);
+  delay(LONG_DELAY);
+}
+
+void AttachServos(){
+  sLeftRight.attach(sLeftRightPin);
+  sFrontBack.attach(sFrontBackPin);
+  sUpDown.attach(sUpDownPin);
+  sWrist.attach(sWristPin);
+  sClaw.attach(sClawPin);
+}
+
+void InitialPosition(){
+  sLeftRight.write(INITIAL_POS);
+  sFrontBack.write(INITIAL_POS);
+  sUpDown.write(INITIAL_POS);
+  sWrist.write(INITIAL_POS);
+  sClaw.write(INITIAL_POS);
+}
+
+void moveServo(Servo s, int degree){
+  int pos = s.read();
+ if (pos < degree){
+    for(pos = pos; pos < degree; pos += 1)  // goes from 0 degrees to 180 degrees 
+    {                                  // in steps of 1 degree 
+      s.write(pos);              // tell servo to go to position in variable 'pos' 
+      delay(150);                       // waits 15ms for the servo to reach the position 
+    } 
+  }else
+  {
+    for(pos = pos; pos>degree; pos-=1)     // goes from 180 degrees to 0 degrees 
+    {                                
+      s.write(pos);              // tell servo to go to position in variable 'pos' 
+      delay(150);                       // waits 15ms for the servo to reach the position 
+    }
+  }
+}
+
+void readInitialPosition(){
+  //Read Initial Positions
+    Serial.println(sLeftRight.read());
+    Serial.println(sUpDown.read());
+    Serial.println(sFrontBack.read());
+    Serial.println(sWrist.read());
+    Serial.println(sClaw.read());
+}
+
+void runDemo(){
+    //Move all 10 to 170 and get back to 90 degree one by one
+    moveLeftRight(10);
+    shortDelay();
+    moveLeftRight(170);
+    shortDelay();
+    moveLeftRight(80);
+
+    moveFrontBack(85);
+    shortDelay();
+    moveFrontBack(95);
+    shortDelay();
+    moveFrontBack(90);
+
+    moveUpDown(75);
+    shortDelay();
+    moveUpDown(110);
+    shortDelay();
+    moveUpDown(90);
+
+    rotate(45);
+    shortDelay();
+    rotate(135);
+    shortDelay();
+    rotate(90);
 }
 
 //************************************
@@ -94,15 +179,12 @@ void longDelay(){
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  
   //Attach Servo motors
-  sUpDown.attach(sUpDownPin);
-  // sLeftRight.attach(sLeftRightPin);
-   sWrist.attach(sWristPin);
-  //sClaw.attach(sClawPin);
+  AttachServos();
+  //Set Initial Positions
+  InitialPosition();
 
-  
-    // initialize the pushbutton pin as an input:
+  // initialize the pushbutton pin as an input:
   // pinMode(switchButtonPin, INPUT);
 
   Serial.println(" All components successfully initialized");
@@ -114,62 +196,16 @@ void loop() {
   
   if(isGoalAchieved == false){
 
-    Serial.println(sClaw.read());
-    Serial.println(sUpDown.read());
-    // longDelay();
-    // clawOpen();
-    // longDelay();
-    // clawClose();
-    longDelay();
-    moveUpDown(120);
-    longDelay();
-    moveUpDown(80);
-    longDelay();
-  // sClaw.write(0);
-  // delay(3000);
+    readInitialPosition();
+    runDemo();
 
-  // Serial.println(sClaw.read());
-  // delay(3000);
-
-  // sClaw.write(180);
-  // delay(3000);
-  
-  // sClaw.write(90);
-  // delay(3000);
-    
-    //counter = counter+1;
-    // delay(3000);
-    // clawClose(sClaw);
-    // delay(3000);
-    // clawOpen(sClaw);
-    // delay(3000);
-
-
-    // delay(3000);
-    // clawClose(sClaw);
-    // delay(3000);
-    // clawOpen(sClaw);
-    // delay(3000);
-
-
-    // delay(3000);
-    // clawClose(sClaw);
-    // delay(3000);
-    // clawOpen(sClaw);
-    // delay(3000);
-
-
-    // delay(3000);
-    // clawClose(sClaw);
-    // delay(3000);
-    // clawOpen(sClaw);
-    // delay(3000);
     isGoalAchieved=true;
      
     // Serial.println("Finished working on motor .. counter = " + counter);
   }else{
     isGoalAchieved=true;
     Serial.println("Finished working on motor .. Goal achieved - XXX");
+    longDelay();
   }
 
   

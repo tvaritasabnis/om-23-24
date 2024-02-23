@@ -42,6 +42,8 @@ int sClawPin=8;
 
 //switch to control the flow
 int switchButtonPin=2;
+int greenLightPin=13;
+int redLightPin=12;
 
 int counter=0;
 int switchState;  // variable for reading the pushbutton status
@@ -49,9 +51,10 @@ bool isPressed=false;
 bool isGoalAchieved=false;
 
 //Constants
-int SHORT_DELAY=250;
+int SHORT_DELAY=300;
 int LONG_DELAY=5000;
 int INITIAL_POS=90;
+int SERVO_SPEED_DELAY=150; //15ms delay to control servo speed
 
 //************************************
 //user defined function definitions
@@ -109,6 +112,14 @@ void AttachServos(){
   sClaw.attach(sClawPin);
 }
 
+void AttachButton_Lights(){
+  // initialize the pushbutton pin as an input:
+  pinMode(switchButtonPin, INPUT);  
+  //Init lights as output
+  pinMode(greenLightPin, OUTPUT);
+  pinMode(redLightPin, OUTPUT);
+}
+
 void InitialPosition(){
   sLeftRight.write(INITIAL_POS);
   sFrontBack.write(INITIAL_POS);
@@ -123,14 +134,14 @@ void moveServo(Servo s, int degree){
     for(pos = pos; pos < degree; pos += 1)  // goes from 0 degrees to 180 degrees 
     {                                  // in steps of 1 degree 
       s.write(pos);              // tell servo to go to position in variable 'pos' 
-      delay(150);                       // waits 15ms for the servo to reach the position 
+      delay(SERVO_SPEED_DELAY);                       // waits 15ms for the servo to reach the position 
     } 
   }else
   {
     for(pos = pos; pos>degree; pos-=1)     // goes from 180 degrees to 0 degrees 
     {                                
       s.write(pos);              // tell servo to go to position in variable 'pos' 
-      delay(150);                       // waits 15ms for the servo to reach the position 
+      delay(SERVO_SPEED_DELAY);                       // waits 15ms for the servo to reach the position 
     }
   }
 }
@@ -142,6 +153,7 @@ void readInitialPosition(){
     Serial.println(sFrontBack.read());
     Serial.println(sWrist.read());
     Serial.println(sClaw.read());
+    
 }
 
 void runDemo(){
@@ -181,11 +193,9 @@ void setup() {
   Serial.begin(9600);
   //Attach Servo motors
   AttachServos();
+  AttachButton_Lights();
   //Set Initial Positions
   InitialPosition();
-
-  // initialize the pushbutton pin as an input:
-  // pinMode(switchButtonPin, INPUT);
 
   Serial.println(" All components successfully initialized");
 }
@@ -193,20 +203,54 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:  
 
+  ////####### Uncomment this to run Demo mode ######
+  //if(isGoalAchieved == false){
+      // readInitialPosition();
+      // runDemo();
+  //   isGoalAchieved=true;
+  //   // Serial.println("Finished working on motor .. counter = " + counter);
+  // }else{
+  //   isGoalAchieved=true;
+  //   Serial.println("Finished working on motor .. Goal achieved - XXX");
+  //   longDelay();
+  // }
+  ////####### End Demo ##########################
+
+
+    // read the state of the pushbutton value:
+    switchState = digitalRead(switchButtonPin);
+    //  Serial.println( switchState );
   
-  if(isGoalAchieved == false){
+    if (switchState == HIGH){
+      counter++;
+      shortDelay();
+      isPressed=true;
+    }
 
-    readInitialPosition();
-    runDemo();
-
-    isGoalAchieved=true;
+    if (isPressed){ 
+      Serial.println( counter ); 
      
-    // Serial.println("Finished working on motor .. counter = " + counter);
-  }else{
-    isGoalAchieved=true;
-    Serial.println("Finished working on motor .. Goal achieved - XXX");
-    longDelay();
-  }
+      if (counter == 1){
+        //Light HIGH
+        digitalWrite(greenLightPin, HIGH);
+        Serial.println( "lights ON ");
+        delay(5000);
+        digitalWrite(greenLightPin, LOW);
+      }else if (counter == 2){
+        //Light HIGH
+        digitalWrite(greenLightPin, HIGH);
+        Serial.println( "lights ON ");
+        delay(5000);
+        digitalWrite(greenLightPin, LOW);
+      }else if (counter == 3){
+        runDemo();
+      }else if (counter >= 4){
+        //Reset
+        counter=0;
+      }
+      isPressed=false;
+    }
+
 
   
   // // read the state of the pushbutton value:

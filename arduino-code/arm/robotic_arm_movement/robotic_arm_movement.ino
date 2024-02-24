@@ -156,6 +156,31 @@ void readInitialPosition(){
     
 }
 
+void showGreenSignal(){
+  //Light HIGH
+  digitalWrite(greenLightPin, HIGH);
+  Serial.println( "lights ON ");
+  longDelay();
+  digitalWrite(greenLightPin, LOW);
+}
+
+void showRedSignal(){
+  //Light HIGH
+  digitalWrite(redLightPin, HIGH);
+  Serial.println( "Red lights ON ");
+  delay(5000);
+  digitalWrite(greenLightPin, LOW);
+  shortDelay();
+}
+
+void moveToCoordinates(int leftRight, int upDown, int frontBack) {
+  // Move motors to specified angles for reaching coordinates
+  moveLeftRight(leftRight);
+  moveUpDown(upDown);
+  moveFrontBack(frontBack);
+  delay(1000);  // Adjust delay as needed for movement completion
+}
+
 void runDemo(){
     //Move all 10 to 170 and get back to 90 degree one by one
     moveLeftRight(10);
@@ -182,6 +207,7 @@ void runDemo(){
     shortDelay();
     rotate(90);
 }
+
 
 //************************************
 //Main Program
@@ -231,19 +257,25 @@ void loop() {
       Serial.println( counter ); 
      
       if (counter == 1){
-        //Light HIGH
-        digitalWrite(greenLightPin, HIGH);
-        Serial.println( "lights ON ");
-        delay(5000);
-        digitalWrite(greenLightPin, LOW);
+        longDelay();
+        showGreenSignal();
       }else if (counter == 2){
-        //Light HIGH
-        digitalWrite(greenLightPin, HIGH);
-        Serial.println( "lights ON ");
-        delay(5000);
-        digitalWrite(greenLightPin, LOW);
+        longDelay();
+        showGreenSignal();
       }else if (counter == 3){
-        runDemo();
+        longDelay();
+        showRedSignal();
+        //Start Desmantle work
+        clawOpen();
+        moveToCoordinates(100, 125, 95); //Grab First piece
+        clawClose();
+        moveToCoordinates(20, 35, 95); //take it to drop point
+        clawOpen();
+        //Start Assemble work
+
+        longDelay();
+        showGreenSignal();
+
       }else if (counter >= 4){
         //Reset
         counter=0;

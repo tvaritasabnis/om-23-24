@@ -52,7 +52,7 @@ bool isGoalAchieved=false;
 
 //Constants
 int SHORT_DELAY=300;
-int LONG_DELAY=5000;
+int LONG_DELAY=1000;
 int INITIAL_POS=90;
 int SERVO_SPEED_DELAY=150; //15ms delay to control servo speed
 
@@ -66,7 +66,7 @@ Claw close is the neutral position for servo motor with default angle of 93
 */
 void clawClose(){
   Serial.println("Closing the claw");
-  sClaw.write(95);
+  sClaw.write(83);
 }
 
 /* This function is hardcoded to always open the claw.*/
@@ -248,7 +248,8 @@ void loop() {
     //  Serial.println( switchState );
   
     if (switchState == HIGH){
-      counter++;
+      //counter++;
+      counter=3; //temp code
       shortDelay();
       isPressed=true;
     }
@@ -264,12 +265,12 @@ void loop() {
         showGreenSignal();
       }else if (counter == 3){
         longDelay();
-        showRedSignal();
+        //showRedSignal();
         //Start Desmantle work
         clawOpen();
-        moveToCoordinates(100, 125, 95); //Grab First piece
+        moveToCoordinates(100, 75, 95); //Grab First piece
         clawClose();
-        moveToCoordinates(20, 35, 95); //take it to drop point
+        moveToCoordinates(20, 105, 95); //take it to drop point
         clawOpen();
         //Start Assemble work
 

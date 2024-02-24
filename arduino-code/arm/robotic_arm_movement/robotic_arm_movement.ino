@@ -175,9 +175,9 @@ void showRedSignal(){
 
 void moveToCoordinates(int leftRight, int upDown, int frontBack) {
   // Move motors to specified angles for reaching coordinates
-  moveLeftRight(leftRight);
-  moveUpDown(upDown);
-  moveFrontBack(frontBack);
+  if (leftRight != -1) moveLeftRight(leftRight);
+  if (upDown != -1) moveUpDown(upDown);
+  if (frontBack != -1) moveFrontBack(frontBack);
   delay(1000);  // Adjust delay as needed for movement completion
 }
 

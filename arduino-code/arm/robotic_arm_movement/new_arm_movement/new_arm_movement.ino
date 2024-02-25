@@ -1,20 +1,6 @@
 #include<Servo.h>
 
 
-
-//************************************
-//user defined function declarations
-//************************************
-void moveLeftRight(int degree); 
-void moveUpDown(int degree); 
-void moveFrontBack(int degree); 
-void clawOpen(); 
-void clawClose(); 
-void rotate(int degree);
-void moveServo(Servo s, int degree);
-void shortDelay();
-void longDelay();
-
 //************************************
 //user defined variables
 //************************************
@@ -76,18 +62,45 @@ void clawOpen(){
 }
 
 
-void moveLeftRight(int degree){
-  Serial.println("Moving Left/Right by .. " + degree);
-  moveServo(sLeftRight, degree);
+void moveLeft(int degree){
+  Serial.println("Moving Left .. " + degree);
+  int pos = sLeftRight.read();
+  pos += degree;
+  moveServo(sLeftRight, pos);
 }
 
-void moveFrontBack(int degree){
-  Serial.println("Moving Front/Back by .. " + degree);
-  moveServo(sFrontBack, degree);
+void moveRight(int degree){
+  Serial.println("Moving Right by .. " + degree);
+  int pos = sLeftRight.read();
+  pos -= degree;
+  moveServo(sLeftRight, pos);
 }
 
-void moveUpDown(int degree){
+void moveFront(int degree){
+  Serial.println("Moving Front by .. " + degree);
+   int pos = sLeftRight.read();
+  pos += degree;
+  moveServo(sFrontBack, pos);
+}
+
+void moveBack(int degree){
+  Serial.println("Moving Back by .. " + degree);
+   int pos = sLeftRight.read();
+  pos -= degree;
+  moveServo(sFrontBack, pos);
+}
+
+void moveUp(int degree){
   Serial.println("Moving Up by .. " + degree);
+  int pos = sLeftRight.read();
+  pos += degree;
+  moveServo(sUpDown, degree);
+}
+
+void moveDown(int degree){
+  Serial.println("Moving Down by .. " + degree);
+  int pos = sLeftRight.read();
+  pos -= degree;
   moveServo(sUpDown, degree);
 }
 
@@ -130,7 +143,7 @@ void InitialPosition(){
 
 void moveServo(Servo s, int degree){
   int pos = s.read();
- if (pos < degree){
+  if (pos < degree){
     for(pos = pos; pos < degree; pos += 1)  // goes from 0 degrees to 180 degrees 
     {                                  // in steps of 1 degree 
       s.write(pos);              // tell servo to go to position in variable 'pos' 
@@ -153,7 +166,6 @@ void readInitialPosition(){
     Serial.println(sFrontBack.read());
     Serial.println(sWrist.read());
     Serial.println(sClaw.read());
-    
 }
 
 void showGreenSignal(){
@@ -173,40 +185,14 @@ void showRedSignal(){
   shortDelay();
 }
 
-void moveToCoordinates(int leftRight, int upDown, int frontBack) {
-  // Move motors to specified angles for reaching coordinates
-  if (leftRight != -1) moveLeftRight(leftRight);
-  if (upDown != -1) moveUpDown(upDown);
-  if (frontBack != -1) moveFrontBack(frontBack);
-  delay(1000);  // Adjust delay as needed for movement completion
+void moveToHome(){
+  moveServo(sLeftRight, INITIAL_POS);
+  moveServo(sFrontBack, INITIAL_POS);
+  moveServo(sUpDown, INITIAL_POS);
+  moveServo(sWrist, 85);
+  moveServo(sClaw, 85);
 }
 
-void runDemo(){
-    //Move all 10 to 170 and get back to 90 degree one by one
-    moveLeftRight(10);
-    shortDelay();
-    moveLeftRight(170);
-    shortDelay();
-    moveLeftRight(80);
-
-    moveFrontBack(85);
-    shortDelay();
-    moveFrontBack(95);
-    shortDelay();
-    moveFrontBack(90);
-
-    moveUpDown(75);
-    shortDelay();
-    moveUpDown(110);
-    shortDelay();
-    moveUpDown(90);
-
-    rotate(45);
-    shortDelay();
-    rotate(135);
-    shortDelay();
-    rotate(90);
-}
 
 
 //************************************
@@ -228,20 +214,6 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:  
-
-  ////####### Uncomment this to run Demo mode ######
-  //if(isGoalAchieved == false){
-      // readInitialPosition();
-      // runDemo();
-  //   isGoalAchieved=true;
-  //   // Serial.println("Finished working on motor .. counter = " + counter);
-  // }else{
-  //   isGoalAchieved=true;
-  //   Serial.println("Finished working on motor .. Goal achieved - XXX");
-  //   longDelay();
-  // }
-  ////####### End Demo ##########################
-
 
     // read the state of the pushbutton value:
     switchState = digitalRead(switchButtonPin);
@@ -267,12 +239,19 @@ void loop() {
         longDelay();
         //showRedSignal();
         //Start Desmantle work
-        clawOpen();
-        moveToCoordinates(-1, 75, -1); //Grab First piece
-        moveToCoordinates(100, 75, 95); //Grab First piece
-        clawClose();
-        moveToCoordinates(20, 105, 95); //take it to drop point
-        clawOpen();
+          clawOpen();
+          moveBack(10);
+          moveLeft(10);
+          moveUp(10);
+          moveFront(10);
+          clawClose();
+          moveBack(10);
+          moveRight(40);
+          moveFront(10);
+          moveDown(20);
+          clawOpen();
+          moveUp(20);
+          moveToHome();
         //Start Assemble work
 
         longDelay();
@@ -286,43 +265,5 @@ void loop() {
     }
 
 
-  
-  // // read the state of the pushbutton value:
-  // switchState = digitalRead(switchButtonPin);
-  // //  Serial.println( switchState );
-  
-  // if (switchState == HIGH){
-  //   counter++;
-  //   delay(300);
-  //   isPressed=true;
-  // }
-  // //  Serial.println( "Press Count : " + press ); 
-  // //delay(300);
-  // if (isPressed){ 
-  //   Serial.println( counter ); 
-  //   if (counter == 1){
-  //     moveLeft(sUpDown,10);
-  //     moveRight(sLeftRight,10);
-  //     moveUp(wristMotor,10);
-  //     moveDown(sClaw,10);
-  //   }else if (counter == 2){
-  //     moveLeft(sUpDown,40);
-  //     moveRight(sLeftRight,40);
-  //     moveUp(wristMotor,40);
-  //     moveDown(sClaw,40);
-  //   }else if (counter == 3){
-  //     moveLeft(sUpDown,90);
-  //     moveRight(sLeftRight,90);
-  //     moveUp(wristMotor,90);
-  //     moveDown(sClaw,90);
-  //   }else if (counter >= 4){
-  //     moveLeft(sUpDown,0);
-  //     moveRight(sLeftRight,0);
-  //     moveUp(wristMotor,0);
-  //     moveDown(sClaw,0);
-  //     counter=0;
-  //   }
-  //   isPressed=false;
-  // }
 }
 

@@ -52,9 +52,9 @@ bool isGoalAchieved=false;
 
 //Constants
 int SHORT_DELAY=300;
-int LONG_DELAY=1000;
+int LONG_DELAY=2000;
 int INITIAL_POS=90;
-int SERVO_SPEED_DELAY=150; //15ms delay to control servo speed
+int SERVO_SPEED_DELAY=70; //15ms delay to control servo speed
 
 //************************************
 //user defined function definitions
@@ -66,13 +66,15 @@ Claw close is the neutral position for servo motor with default angle of 93
 */
 void clawClose(){
   Serial.println("Closing the claw");
-  sClaw.write(83);
+  moveServo(sClaw, 83);
+  longDelay();
 }
 
 /* This function is hardcoded to always open the claw.*/
 void clawOpen(){
   Serial.println(" Opening the claw ");
-  sClaw.write(65);
+  moveServo(sClaw, 65);
+  shortDelay();
 }
 
 
@@ -103,6 +105,9 @@ void shortDelay(){
 void longDelay(){
   delay(LONG_DELAY);
 }
+void lightBlinkDelay(){
+  delay(1000);
+}
 
 void AttachServos(){
   sLeftRight.attach(sLeftRightPin);
@@ -121,11 +126,11 @@ void AttachButton_Lights(){
 }
 
 void InitialPosition(){
-  sLeftRight.write(INITIAL_POS);
-  sFrontBack.write(INITIAL_POS);
-  sUpDown.write(INITIAL_POS);
-  sWrist.write(85);
-  sClaw.write(INITIAL_POS);
+  moveServo(sLeftRight, INITIAL_POS);
+  moveServo(sFrontBack, INITIAL_POS);
+  moveServo(sUpDown, INITIAL_POS);
+  moveServo(sWrist, 85);
+  moveServo(sClaw, 65);
 }
 
 void moveServo(Servo s, int degree){
@@ -158,20 +163,45 @@ void readInitialPosition(){
 
 void showGreenSignal(){
   //Light HIGH
+  Serial.println( "Green lights ON ");
   digitalWrite(greenLightPin, HIGH);
-  Serial.println( "lights ON ");
+  lightBlinkDelay();
+  digitalWrite(greenLightPin, LOW);
+  lightBlinkDelay();
+  digitalWrite(greenLightPin, HIGH);
+  lightBlinkDelay();
+  digitalWrite(greenLightPin, LOW);
+  lightBlinkDelay();
+  digitalWrite(greenLightPin, HIGH);
+  lightBlinkDelay();
+  digitalWrite(greenLightPin, LOW);
+  lightBlinkDelay();
+  digitalWrite(greenLightPin, HIGH);
   longDelay();
   digitalWrite(greenLightPin, LOW);
+  lightBlinkDelay();
 }
 
 void showRedSignal(){
   //Light HIGH
-  digitalWrite(redLightPin, HIGH);
   Serial.println( "Red lights ON ");
-  delay(5000);
-  digitalWrite(greenLightPin, LOW);
-  shortDelay();
-}
+  digitalWrite(redLightPin, HIGH);
+  lightBlinkDelay();
+  digitalWrite(redLightPin, LOW);
+  lightBlinkDelay();
+  digitalWrite(redLightPin, HIGH);
+  lightBlinkDelay();
+  digitalWrite(redLightPin, LOW);
+  lightBlinkDelay();
+  digitalWrite(redLightPin, HIGH);
+  lightBlinkDelay();
+  digitalWrite(redLightPin, LOW);
+  lightBlinkDelay();
+  digitalWrite(redLightPin, HIGH);
+  longDelay();
+  digitalWrite(redLightPin, LOW);
+  lightBlinkDelay();
+  }
 
 void moveToCoordinates(int leftRight, int upDown, int frontBack) {
   // Move motors to specified angles for reaching coordinates
@@ -248,8 +278,8 @@ void loop() {
     //  Serial.println( switchState );
   
     if (switchState == HIGH){
-      //counter++;
-      counter=3; //temp code
+      counter++;
+      //counter=3; //temp code
       shortDelay();
       isPressed=true;
     }
@@ -258,23 +288,51 @@ void loop() {
       Serial.println( counter ); 
      
       if (counter == 1){
+        moveToCoordinates(100, 80, -1); //Grab First piece
+        shortDelay();
+        moveToCoordinates(80, 90, -1); //Grab First piece
         longDelay();
         showGreenSignal();
       }else if (counter == 2){
+        moveToCoordinates(80, 100, -1); //Grab First piece
+        shortDelay();
+        moveToCoordinates(100, 90, -1); //Grab First piece
         longDelay();
         showGreenSignal();
       }else if (counter == 3){
+        moveToCoordinates(100, 80, 100); //Grab First piece
+        shortDelay();
+        moveToCoordinates(90, 90, 90); //Grab First piece
         longDelay();
-        //showRedSignal();
+        showRedSignal();
+        longDelay();
         //Start Desmantle work
         clawOpen();
-        moveToCoordinates(-1, 75, -1); //Grab First piece
-        moveToCoordinates(100, 75, 95); //Grab First piece
+        moveToCoordinates(-1, -1, 120); //Grab First piece
+        moveToCoordinates(120, 85, 90); //Grab First piece
         clawClose();
-        moveToCoordinates(20, 105, 95); //take it to drop point
+        moveToCoordinates(-1, -1, 120); //Grab First piece
+        moveToCoordinates(170, 110, 90); //Grab First piece
+        clawOpen();
+
+        clawOpen();
+        moveToCoordinates(-1, -1, 120); //Grab First piece
+        moveToCoordinates(90, 90, 90); //Grab First piece
+        clawClose();
+        moveToCoordinates(-1, -1, 120); //Grab First piece
+        moveToCoordinates(20, 110, 90); //Grab First piece
+        clawOpen();
+
+        clawOpen();
+        moveToCoordinates(-1, -1, 120); //Grab First piece
+        moveToCoordinates(110, 100, 90); //Grab First piece
+        clawClose();
+        moveToCoordinates(-1, -1, 120); //Grab First piece
+        moveToCoordinates(20, 110, 90); //Grab First piece
         clawOpen();
         //Start Assemble work
-
+        InitialPosition();
+        longDelay();
         longDelay();
         showGreenSignal();
 

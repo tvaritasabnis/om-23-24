@@ -52,13 +52,15 @@ Claw close is the neutral position for servo motor with default angle of 93
 */
 void clawClose(){
   Serial.println("Closing the claw");
-  sClaw.write(83);
+  moveServo(sClaw, 83);
+  shortDelay();
 }
 
 /* This function is hardcoded to always open the claw.*/
 void clawOpen(){
   Serial.println(" Opening the claw ");
-  sClaw.write(65);
+  moveServo(sClaw, 65);
+  shortDelay();
 }
 
 
@@ -78,30 +80,30 @@ void moveRight(int degree){
 
 void moveFront(int degree){
   Serial.println("Moving Front by .. " + degree);
-   int pos = sLeftRight.read();
-  pos += degree;
+   int pos = sFrontBack.read();
+  pos -= degree;
   moveServo(sFrontBack, pos);
 }
 
 void moveBack(int degree){
   Serial.println("Moving Back by .. " + degree);
-   int pos = sLeftRight.read();
-  pos -= degree;
+   int pos = sFrontBack.read();
+  pos += degree;
   moveServo(sFrontBack, pos);
 }
 
 void moveUp(int degree){
   Serial.println("Moving Up by .. " + degree);
-  int pos = sLeftRight.read();
-  pos += degree;
-  moveServo(sUpDown, degree);
+  int pos = sUpDown.read();
+  pos -= degree;
+  moveServo(sUpDown, pos);
 }
 
 void moveDown(int degree){
   Serial.println("Moving Down by .. " + degree);
-  int pos = sLeftRight.read();
-  pos -= degree;
-  moveServo(sUpDown, degree);
+  int pos = sUpDown.read();
+  pos += degree;
+  moveServo(sUpDown, pos);
 }
 
 void rotate(int degree){
@@ -142,6 +144,8 @@ void InitialPosition(){
 }
 
 void moveServo(Servo s, int degree){
+  if (degree < 1 || degree > 179) return; //for servo Safety
+
   int pos = s.read();
   if (pos < degree){
     for(pos = pos; pos < degree; pos += 1)  // goes from 0 degrees to 180 degrees 
@@ -240,17 +244,18 @@ void loop() {
         //showRedSignal();
         //Start Desmantle work
           clawOpen();
-          moveBack(10);
-          moveLeft(10);
+          moveBack(25);
+          moveLeft(15);
           moveUp(10);
-          moveFront(10);
+          moveFront(20);
           clawClose();
-          moveBack(10);
-          moveRight(40);
+
+          moveBack(20);
+          moveRight(50);
           moveFront(10);
-          moveDown(20);
+          moveDown(30);
           clawOpen();
-          moveUp(20);
+          moveUp(30);
           moveToHome();
         //Start Assemble work
 

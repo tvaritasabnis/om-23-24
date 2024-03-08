@@ -316,6 +316,7 @@ void loop() {
         clawClose();
         moveToCoordinates(-1, -1, 120); 
         moveToCoordinates(170, 110, 90); 
+        clawOpen();
 
         //Move part2
         clawOpen();
@@ -324,8 +325,10 @@ void loop() {
         clawClose();
         moveToCoordinates(-1, -1, 120); 
         moveToCoordinates(170, 110, 90); 
+        clawOpen();
         
         //Go back to initial position 
+        longDelay();
         InitialPosition();
         longDelay();
         longDelay();

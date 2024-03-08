@@ -66,7 +66,7 @@ Claw close is the neutral position for servo motor with default angle of 93
 */
 void clawClose(){
   Serial.println("Closing the claw");
-  moveServo(sClaw, 83);
+  moveServo(sClaw, 87);
   longDelay();
 }
 
@@ -300,6 +300,39 @@ void loop() {
         longDelay();
         showGreenSignal();
       }else if (counter == 3){
+        //First identify the object to be bad
+        moveToCoordinates(100, 80, 100); //Grab First piece
+        shortDelay();
+        moveToCoordinates(90, 90, 90); //Grab First piece
+        longDelay();
+        showRedSignal();
+        longDelay();
+
+        //Now start fixing (disassemble and reassemble) the object
+        //Move part1
+        clawOpen();
+        moveToCoordinates(-1, -1, 120); 
+        moveToCoordinates(120, 85, 90); 
+        clawClose();
+        moveToCoordinates(-1, -1, 120); 
+        moveToCoordinates(170, 110, 90); 
+
+        //Move part2
+        clawOpen();
+        moveToCoordinates(-1, -1, 120); 
+        moveToCoordinates(120, 85, 90); 
+        clawClose();
+        moveToCoordinates(-1, -1, 120); 
+        moveToCoordinates(170, 110, 90); 
+        
+        //Go back to initial position 
+        InitialPosition();
+        longDelay();
+        longDelay();
+        //mark the object to be good
+        showGreenSignal();
+      }
+      else if (counter == -3){ // this is the old code
         moveToCoordinates(100, 80, 100); //Grab First piece
         shortDelay();
         moveToCoordinates(90, 90, 90); //Grab First piece

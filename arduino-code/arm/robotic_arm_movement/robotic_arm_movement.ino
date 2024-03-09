@@ -66,7 +66,7 @@ Claw close is the neutral position for servo motor with default angle of 93
 */
 void clawClose(){
   Serial.println("Closing the claw");
-  moveServo(sClaw, 87);
+  moveServo(sClaw, 90);
   longDelay();
 }
 
@@ -279,7 +279,7 @@ void loop() {
   
     if (switchState == HIGH){
       counter++;
-      //counter=3; //temp code
+      // counter=3; //temp code
       shortDelay();
       isPressed=true;
     }
@@ -311,27 +311,46 @@ void loop() {
         //Now start fixing (disassemble and reassemble) the object
         //Move part1
         clawOpen();
+        //void moveToCoordinates(int leftRight, int upDown, int frontBack)
+        //left 90 -> 180,  right -> 90 -> 0
+        //up 90->0 , down 90 -> 180
+        //front 90 ->0, back 90 -> 180
         moveToCoordinates(-1, -1, 120); 
-        moveToCoordinates(120, 85, 90); 
+        moveToCoordinates(120, -1, 75); 
+        moveToCoordinates(-1, 85, -1); 
+        moveToCoordinates(60, -1, -1); 
         clawClose();
-        moveToCoordinates(-1, -1, 120); 
-        moveToCoordinates(170, 110, 90); 
+        moveToCoordinates(-1, 85, 120); 
+        moveToCoordinates(169, 90, 90); 
         clawOpen();
+        moveToCoordinates(110, -1, -1); 
 
         //Move part2
         clawOpen();
+
         moveToCoordinates(-1, -1, 120); 
-        moveToCoordinates(120, 85, 90); 
+        moveToCoordinates(120, -1, 75); 
+        moveToCoordinates(-1, 85, -1); 
+        moveToCoordinates(35, -1, -1); 
         clawClose();
-        moveToCoordinates(-1, -1, 120); 
-        moveToCoordinates(170, 110, 90); 
+        moveToCoordinates(-1, 85, 120); 
+        moveToCoordinates(139, 90, 90); 
         clawOpen();
+        moveToCoordinates(110, -1, -1); 
+
+        // clawOpen();
+        // moveToCoordinates(-1, -1, 120); 
+        // moveToCoordinates(120, 85, 90); 
+        // clawClose();
+        // moveToCoordinates(-1, -1, 120); 
+        // moveToCoordinates(170, 110, 90); 
+        // clawOpen();
         
         //Go back to initial position 
         longDelay();
         InitialPosition();
-        longDelay();
-        longDelay();
+        // longDelay();
+        // longDelay();
         //mark the object to be good
         showGreenSignal();
       }

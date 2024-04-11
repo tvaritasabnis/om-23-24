@@ -287,74 +287,123 @@ void loop() {
     if (isPressed){ 
       Serial.println( counter ); 
      
+      // if (counter == 1){
+      //   moveToCoordinates(100, 80, -1); //Do nothing with the pieces. Show arm movement
+      //   shortDelay();
+      //   moveToCoordinates(80, 90, -1); //Do nothing with the pieces. Show arm movement
+      //   longDelay();
+      //   showGreenSignal();
+      // }else if (counter == 2){
+      //   moveToCoordinates(80, 100, -1); //Do nothing with the pieces. Show arm movement
+      //   shortDelay();
+      //   moveToCoordinates(100, 90, -1); //Do nothing with the pieces. Show arm movement
+      //   longDelay();
+      //   showGreenSignal();
+      // }else if (counter == 3){
       if (counter == 1){
-        moveToCoordinates(100, 80, -1); //Grab First piece
-        shortDelay();
-        moveToCoordinates(80, 90, -1); //Grab First piece
-        longDelay();
-        showGreenSignal();
-      }else if (counter == 2){
-        moveToCoordinates(80, 100, -1); //Grab First piece
-        shortDelay();
-        moveToCoordinates(100, 90, -1); //Grab First piece
-        longDelay();
-        showGreenSignal();
-      }else if (counter == 3){
         //First identify the object to be bad
-        moveToCoordinates(100, 80, 100); //Grab First piece
-        shortDelay();
-        moveToCoordinates(90, 90, 90); //Grab First piece
-        longDelay();
-        showRedSignal();
-        longDelay();
+        // moveToCoordinates(100, 80, 100); //Do nothing with the pieces. Show arm movement
+        // shortDelay();
+        // moveToCoordinates(90, 90, 90); //Do nothing with the pieces. Show arm movement
+        // longDelay();
+        // showRedSignal();
+        // longDelay();
 
-        //Now start fixing (disassemble and reassemble) the object
-        //Move part1
-        clawOpen();
         //void moveToCoordinates(int leftRight, int upDown, int frontBack)
         //left 90 -> 180,  right -> 90 -> 0
         //up 90->0 , down 90 -> 180
         //front 90 ->0, back 90 -> 180
-        moveToCoordinates(-1, -1, 120); 
-        moveToCoordinates(120, -1, 75); 
-        moveToCoordinates(-1, 85, -1); 
-        moveToCoordinates(60, -1, -1); 
-        clawClose();
-        moveToCoordinates(-1, 85, 120); 
-        moveToCoordinates(169, 90, 90); 
-        clawOpen();
-        moveToCoordinates(110, -1, -1); 
-
-        //Move part2
-        clawOpen();
-
-        moveToCoordinates(-1, -1, 120); 
-        moveToCoordinates(120, -1, 75); 
-        moveToCoordinates(-1, 85, -1); 
-        moveToCoordinates(35, -1, -1); 
-        clawClose();
-        moveToCoordinates(-1, 85, 120); 
-        moveToCoordinates(139, 90, 90); 
-        clawOpen();
-        moveToCoordinates(110, -1, -1); 
-
-        // clawOpen();
-        // moveToCoordinates(-1, -1, 120); 
-        // moveToCoordinates(120, 85, 90); 
-        // clawClose();
-        // moveToCoordinates(-1, -1, 120); 
-        // moveToCoordinates(170, 110, 90); 
-        // clawOpen();
         
+        //Now start fixing (disassemble and reassemble) the object
+/*
+        //Move piece 2 
+          //prepare claw position and pickup from source
+          clawOpen();
+          rotate(175);
+
+          moveToCoordinates(-1, -1, 120); 
+          moveToCoordinates(120, -1, -1); 
+          moveToCoordinates(-1, 85, -1); 
+          moveToCoordinates(35, -1, -1); 
+          moveToCoordinates(-1, -1, 75); 
+          clawClose();
+
+          //move piece to destination 
+          moveToCoordinates(-1, 85, 120); 
+          rotate(10);
+          moveToCoordinates(169, 90, 90); 
+          clawOpen();
+          
+
+        //Reset arm to move it out of the way 
+        moveToCoordinates(-1, 110, -1); 
+        moveToCoordinates(110, -1, -1); 
+        rotate(90);
+*/
+/*
+      //Move piece 1
+          //prepare claw position and pickup from source
+          clawOpen();          
+          rotate(175);
+          
+          moveToCoordinates(-1, -1, 120); 
+          moveToCoordinates(120, -1, -1); 
+          moveToCoordinates(-1, 85, -1); 
+          moveToCoordinates(60, -1, -1); 
+          moveToCoordinates(-1, -1, 75); 
+          clawClose();
+
+          //move piece to destination 
+          moveToCoordinates(-1, 85, 120); 
+          rotate(10);
+          moveToCoordinates(139, 90, 90); 
+          clawOpen();
+
+        //Reset arm to move it out of the way 
+          moveToCoordinates(-1, 110, -1); 
+          moveToCoordinates(110, -1, -1); 
+          rotate(90);
+*/
+
+      //Move piece 3
+      //void moveToCoordinates(int leftRight, int upDown, int frontBack)
+        //left 90 -> 180,  right -> 90 -> 0
+        //up 90->0 , down 90 -> 180 --> UP = Decrease , Down = Increase
+        //front 90 ->0, back 90 -> 180
+
+          //prepare claw position and pickup from source
+          clawOpen();          
+          rotate(175);
+          
+          moveToCoordinates(-1, -1, 110); 
+          //moveToCoordinates(120, -1, -1); 
+          moveToCoordinates(-1, 85, -1); 
+          moveToCoordinates(60, -1, -1); 
+          moveToCoordinates(-1, 68, 80); 
+          clawClose();
+
+        //   //move piece to destination 
+           moveToCoordinates(-1, 68, 110); 
+           moveToCoordinates(170, -1, 120); 
+           rotate(10);
+           moveToCoordinates(-1, 140, -1); 
+           clawOpen();
+          moveToCoordinates(-1, -1, 110); 
+
+        // //Reset arm to move it out of the way 
+        //   moveToCoordinates(-1, 110, -1); 
+        //   moveToCoordinates(110, -1, -1); 
+        //   rotate(90);
+
+
+
         //Go back to initial position 
         longDelay();
         InitialPosition();
-        // longDelay();
-        // longDelay();
         //mark the object to be good
         showGreenSignal();
       }
-      else if (counter == -3){ // this is the old code
+      else if (counter == -3){ // this is the old code as of mar 2023
         moveToCoordinates(100, 80, 100); //Grab First piece
         shortDelay();
         moveToCoordinates(90, 90, 90); //Grab First piece

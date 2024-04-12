@@ -316,15 +316,45 @@ void loop() {
         
         //Now start fixing (disassemble and reassemble) the object
 
+ //Move piece 3
+      //void moveToCoordinates(int leftRight, int upDown, int frontBack)
+        //left 90 -> 180,  right -> 90 -> 0
+        //up 90->0 , down 90 -> 180 --> UP = Decrease , Down = Increase
+        //front 90 ->0, back 90 -> 180
+
+          //prepare claw position and pickup from source
+          clawOpen();          
+          rotate(175);
+          
+          moveToCoordinates(-1, -1, 110); 
+          //moveToCoordinates(120, -1, -1); 
+          moveToCoordinates(-1, 77, -1); 
+          moveToCoordinates(53, -1, -1); 
+          moveToCoordinates(-1, -1, 92); 
+          clawClose();
+          
+
+        //   //move piece to destination 
+           moveToCoordinates(-1, -1, 115); 
+           moveToCoordinates(-1, 75, -1);            
+           moveToCoordinates(160, -1, -1); 
+           rotate(0);
+           moveToCoordinates(-1, 122, -1); 
+           moveToCoordinates(-1, -1, 80); 
+           clawOpen();
+           moveToCoordinates(-1, -1, 110); 
+           InitialPosition();
+
+
         //Move piece 2 
           //prepare claw position and pickup from source
           clawOpen();
           rotate(170);
           moveToCoordinates(-1, -1, 120); 
           moveToCoordinates(-1, 85, -1); 
-          moveToCoordinates(37, -1, -1); 
+          moveToCoordinates(40, -1, -1); 
           moveToCoordinates(-1, -1, 94); 
-          moveToCoordinates(-1, 107, -1); 
+          moveToCoordinates(-1, 110, -1); 
           clawClose();
 
           //move piece to destination 
@@ -378,40 +408,12 @@ void loop() {
         moveToCoordinates(90, -1, -1); 
         rotate(90);
 
-
-/*
-      //Move piece 3
-      //void moveToCoordinates(int leftRight, int upDown, int frontBack)
-        //left 90 -> 180,  right -> 90 -> 0
-        //up 90->0 , down 90 -> 180 --> UP = Decrease , Down = Increase
-        //front 90 ->0, back 90 -> 180
-
-          //prepare claw position and pickup from source
-          clawOpen();          
-          rotate(175);
-          
-          moveToCoordinates(-1, -1, 110); 
-          //moveToCoordinates(120, -1, -1); 
-          moveToCoordinates(-1, 85, -1); 
-          moveToCoordinates(60, -1, -1); 
-          moveToCoordinates(-1, 68, 80); 
-          clawClose();
-
-        //   //move piece to destination 
-           moveToCoordinates(-1, 68, 110); 
-           moveToCoordinates(160, -1, 120); 
-           rotate(10);
-           moveToCoordinates(-1, 120, -1); 
-           moveToCoordinates(-1, -1, 100); 
-           clawOpen();
-          moveToCoordinates(-1, -1, 110); 
-
         // //Reset arm to move it out of the way 
         //   moveToCoordinates(-1, 110, -1); 
         //   moveToCoordinates(110, -1, -1); 
         //   rotate(90);
 
-*/
+
 
         //Go back to initial position 
         longDelay();

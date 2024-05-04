@@ -1,7 +1,5 @@
 #include<Servo.h>
 
-
-
 //************************************
 //user defined function declarations
 //************************************
@@ -371,11 +369,12 @@ void loop() {
           // moveToCoordinates(-1, 80, -1); 
           // moveToCoordinates(-1, -1, 90); 
           clawOpen();
-*/
+
         //Reset arm to move it out of the way 
         moveToCoordinates(-1, -1, 117); 
         moveToCoordinates(-1, 113, -1); 
         moveToCoordinates(110, -1, -1); 
+        */
         //rotate(90);
         InitialPosition();
         
@@ -499,4 +498,3 @@ void loop() {
   //   isPressed=false;
   // }
 }
-

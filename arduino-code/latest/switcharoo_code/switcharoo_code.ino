@@ -292,8 +292,8 @@ void loop() {
     }
 
     if (isPressed){ 
+/*
       // Serial.println( counter ); 
-     /* -- NimeX - Temp 
       if (counter == 1){
         moveToCoordinates(60, 80, -1); //Do nothing with the pieces. Show arm movement
         shortDelay();
@@ -316,69 +316,64 @@ void loop() {
         longDelay();
         showRedSignal();
         longDelay();
-      */ 
-      // End NimeX Temp
-
+*/
         //Now start fixing (disassemble and reassemble) the object
-/*
        //Move piece 1 (cap piece)
       
           //prepare claw position and pickup from source
           clawOpen();          
           rotate(175);          
-          moveToCoordinates(-1, -1, 110); 
-          moveToCoordinates(-1, 87, -1); 
-          moveToCoordinates(47, -1, -1); 
-          moveToCoordinates(-1, -1, 90); 
+          moveToCoordinates(-1, -1, 100); 
+          moveToCoordinates(-1, 68, -1); 
+          moveToCoordinates(57, -1, -1); 
+          moveToCoordinates(-1, -1, 78); 
           clawClose();
   
-          //move piece to destination 
-           moveToCoordinates(-1, 85, -1);            
-           moveToCoordinates(-1, -1, 122); 
+          // //move piece to destination 
+           moveToCoordinates(-1, 60, -1);            
+           moveToCoordinates(-1, -1, 94); 
            moveToCoordinates(165, -1, -1); 
-           //rotate(0);
-           moveToCoordinates(-1, 125, -1); 
-           moveToCoordinates(-1, -1, 110); 
+          //  rotate(0);
+           moveToCoordinates(-1, 110, -1); 
+          //  moveToCoordinates(-1, -1, 80); 
            clawOpen();
-           moveToCoordinates(-1, -1, 130); 
+           moveToCoordinates(-1, -1, 120); 
+           moveToCoordinates(-1, 85, -1); 
+           moveToCoordinates(-1, -1, 80); 
+           moveToCoordinates(-1, 110, -1); 
+           
            moveToCoordinates(-1, 90, -1); 
+           moveToCoordinates(-1, -1, 120); 
            
             InitialPosition();
-*/
-        //left 90 -> 180,  right -> 90 -> 0
-        //up 90->0 , down 90 -> 180
-        //front 90 ->0, back 90 -> 180
 
         //Move piece 2 (back of face)
           //prepare claw position and pickup from source
           clawOpen();
           rotate(170);
-         /*
-          moveToCoordinates(-1, -1, 110); 
+          moveToCoordinates(-1, -1, 100); 
           //moveToCoordinates(-1, 90, -1); 
-          moveToCoordinates(36, -1, -1); 
-          moveToCoordinates(-1, 118, -1); 
-          moveToCoordinates(-1, -1, 94); 
+          moveToCoordinates(34, -1, -1); 
+          moveToCoordinates(-1, 106, -1); 
+          moveToCoordinates(-1, -1, 86); 
           clawClose();
 
           //move piece to destination 
-          // moveToCoordinates(-1, -1, 117); 
-          // moveToCoordinates(-1, 90, -1); 
-          // rotate(0);
-          // moveToCoordinates(175, -1, -1); 
-          // moveToCoordinates(-1, 80, -1); 
-          // moveToCoordinates(-1, -1, 90); 
+          moveToCoordinates(-1, -1, 115); 
+          moveToCoordinates(-1, 80, -1); 
+          rotate(0);
+          moveToCoordinates(175, -1, -1); 
+          moveToCoordinates(-1, 80, -1); 
+          moveToCoordinates(-1, -1, 88); 
           clawOpen();
 
         //Reset arm to move it out of the way 
         moveToCoordinates(-1, -1, 117); 
         moveToCoordinates(-1, 113, -1); 
         moveToCoordinates(110, -1, -1); 
-        */
         //rotate(90);
         InitialPosition();
-        
-/* Nimex - third Piece
+/*        
       //Move front face piece # 3 
           //prepare claw position and pickup from source
           clawOpen();          
@@ -412,50 +407,14 @@ void loop() {
         InitialPosition();
         //mark the object to be good
         showGreenSignal();
-      }
-      else if (counter == -3){ // this is the old code as of mar 2023
-        moveToCoordinates(100, 80, 100); //Grab First piece
-        shortDelay();
-        moveToCoordinates(90, 90, 90); //Grab First piece
-        longDelay();
-        showRedSignal();
-        longDelay();
-        //Start Desmantle work
-        clawOpen();
-        moveToCoordinates(-1, -1, 120); //Grab First piece
-        moveToCoordinates(120, 85, 90); //Grab First piece
-        clawClose();
-        moveToCoordinates(-1, -1, 120); //Grab First piece
-        moveToCoordinates(170, 110, 90); //Grab First piece
-        clawOpen();
 
-        clawOpen();
-        moveToCoordinates(-1, -1, 120); //Grab First piece
-        moveToCoordinates(90, 90, 90); //Grab First piece
-        clawClose();
-        moveToCoordinates(-1, -1, 120); //Grab First piece
-        moveToCoordinates(20, 110, 90); //Grab First piece
-        clawOpen();
-
-        clawOpen();
-        moveToCoordinates(-1, -1, 120); //Grab First piece
-        moveToCoordinates(110, 100, 90); //Grab First piece
-        clawClose();
-        moveToCoordinates(-1, -1, 120); //Grab First piece
-        moveToCoordinates(20, 110, 90); //Grab First piece
-        clawOpen();
-        //Start Assemble work
-        InitialPosition();
-        longDelay();
-        longDelay();
-        showGreenSignal();
-
-      }else if (counter >= 4){
-        //Reset
-        counter=0;
-      }
-      */
-      isPressed=false;
+*/
+       
+      // } else if (counter >= 4){
+      //   //Reset
+      //   counter=0;
+      // }
+    isPressed=false;
     }
 
 

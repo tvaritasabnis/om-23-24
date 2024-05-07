@@ -380,11 +380,11 @@ void loop() {
           clawOpen();          
           rotate(175);
           
-          moveToCoordinates(-1, -1, 120); 
-          moveToCoordinates(-1, 85, -1);  
-          moveToCoordinates(68, -1, -1); 
-          moveToCoordinates(-1, -1, 92); 
-          moveToCoordinates(-1, 107, -1);
+          moveToCoordinates(-1, -1, 110); 
+          moveToCoordinates(-1, 84, -1);  
+          moveToCoordinates(60, -1, -1); 
+          moveToCoordinates(-1, -1, 87); 
+          moveToCoordinates(-1, 104, -1);
           clawClose();
 
           //move piece to destination 
@@ -392,16 +392,18 @@ void loop() {
           moveToCoordinates(-1, 90, -1); 
           rotate(0);
           moveToCoordinates(142, -1, -1); 
-          moveToCoordinates(-1, 88, -1); 
-          moveToCoordinates(-1, -1, 92); 
+          moveToCoordinates(-1, 76, -1); 
+          moveToCoordinates(-1, -1, 78); 
 
           clawOpen();
 
         //Reset arm to move it out of the way 
-        moveToCoordinates(-1, -1, 120); 
+        moveToCoordinates(-1, -1, 110); 
         // moveToCoordinates(-1, 112, -1); 
         moveToCoordinates(90, -1, -1); 
         rotate(90);
+
+        InitialPosition();
 /*
         //Go back to initial position 
         longDelay();

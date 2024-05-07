@@ -316,7 +316,7 @@ void loop() {
         longDelay();
         showRedSignal();
         longDelay();
-*/
+
         //Now start fixing (disassemble and reassemble) the object
        //Move piece 1 (cap piece)
       
@@ -325,7 +325,7 @@ void loop() {
           rotate(175);          
           moveToCoordinates(-1, -1, 100); 
           moveToCoordinates(-1, 68, -1); 
-          moveToCoordinates(57, -1, -1); 
+          moveToCoordinates(55, -1, -1); 
           moveToCoordinates(-1, -1, 78); 
           clawClose();
   
@@ -337,15 +337,16 @@ void loop() {
            moveToCoordinates(-1, 110, -1); 
           //  moveToCoordinates(-1, -1, 80); 
            clawOpen();
-           moveToCoordinates(-1, -1, 120); 
+           moveToCoordinates(-1, -1, 120); //dont go 
            moveToCoordinates(-1, 85, -1); 
-           moveToCoordinates(-1, -1, 80); 
-           moveToCoordinates(-1, 110, -1); 
+           moveToCoordinates(-1, -1, 85); 
+           moveToCoordinates(-1, 105, -1); 
            
+           //move the claw out of the way 
            moveToCoordinates(-1, 90, -1); 
            moveToCoordinates(-1, -1, 120); 
            
-            InitialPosition();
+        //InitialPosition(); // consider removing this - to optimize the code
 
         //Move piece 2 (back of face)
           //prepare claw position and pickup from source
@@ -359,12 +360,12 @@ void loop() {
           clawClose();
 
           //move piece to destination 
-          moveToCoordinates(-1, -1, 115); 
           moveToCoordinates(-1, 80, -1); 
+          moveToCoordinates(-1, -1, 115); 
           rotate(0);
           moveToCoordinates(175, -1, -1); 
           moveToCoordinates(-1, 80, -1); 
-          moveToCoordinates(-1, -1, 88); 
+          moveToCoordinates(-1, -1, 85); 
           clawOpen();
 
         //Reset arm to move it out of the way 
@@ -373,7 +374,7 @@ void loop() {
         moveToCoordinates(110, -1, -1); 
         //rotate(90);
         InitialPosition();
-/*        
+*/        
       //Move front face piece # 3 
           //prepare claw position and pickup from source
           clawOpen();          
@@ -401,7 +402,7 @@ void loop() {
         // moveToCoordinates(-1, 112, -1); 
         moveToCoordinates(90, -1, -1); 
         rotate(90);
-
+/*
         //Go back to initial position 
         longDelay();
         InitialPosition();

@@ -52,7 +52,7 @@ bool isGoalAchieved=false;
 int SHORT_DELAY=300;
 int LONG_DELAY=1000;
 int INITIAL_POS=90;
-int SERVO_SPEED_DELAY=40; //delay to control servo speed
+int SERVO_SPEED_DELAY=70; //delay to control servo speed
 
 //************************************
 //user defined function definitions
@@ -326,14 +326,14 @@ void loop() {
           clawOpen();          
           rotate(175);          
           moveToCoordinates(-1, -1, 100); 
-          moveToCoordinates(-1, 68, -1); 
+          moveToCoordinates(-1, 66, -1); 
           moveToCoordinates(55, -1, -1); 
           moveToCoordinates(-1, -1, 78); 
           clawClose();
   
           // //move piece to destination 
            moveToCoordinates(-1, 60, -1);            
-           moveToCoordinates(-1, -1, 94); 
+           moveToCoordinates(-1, -1, 95); 
            moveToCoordinates(165, -1, -1); 
           //  rotate(0);
            moveToCoordinates(-1, 110, -1); 
@@ -357,7 +357,7 @@ void loop() {
           moveToCoordinates(-1, -1, 100); 
           //moveToCoordinates(-1, 90, -1); 
           moveToCoordinates(34, -1, -1); 
-          moveToCoordinates(-1, 104, -1); 
+          moveToCoordinates(-1, 100, -1); 
           moveToCoordinates(-1, -1, 83); 
           clawClose();
 
@@ -386,7 +386,7 @@ void loop() {
           moveToCoordinates(-1, 84, -1);  
           moveToCoordinates(60, -1, -1); 
           moveToCoordinates(-1, -1, 87); 
-          moveToCoordinates(-1, 103, -1);
+          moveToCoordinates(-1, 101, -1);
           clawClose();
 
           //move piece to destination 

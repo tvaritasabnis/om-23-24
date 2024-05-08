@@ -292,7 +292,7 @@ void loop() {
     }
 
     if (isPressed){ 
-/*
+
       // Serial.println( counter ); 
       if (counter == 1){
         moveToCoordinates(60, 80, -1); //Do nothing with the pieces. Show arm movement
@@ -318,7 +318,7 @@ void loop() {
         showRedSignal();
         longDelay();
 
-*/
+
        //Now start fixing (disassemble and reassemble) the object
        //Move piece 1 (cap piece)
       
@@ -339,9 +339,9 @@ void loop() {
            moveToCoordinates(-1, 110, -1); 
           //  moveToCoordinates(-1, -1, 80); 
            clawOpen();
-           moveToCoordinates(-1, -1, 120); //dont go 
+           moveToCoordinates(-1, -1, 110); //dont go 
            moveToCoordinates(-1, 85, -1); 
-           moveToCoordinates(-1, -1, 85); 
+           moveToCoordinates(-1, -1, 83); 
            moveToCoordinates(-1, 105, -1); 
            
            //move the claw out of the way 
@@ -375,7 +375,7 @@ void loop() {
         moveToCoordinates(-1, 113, -1); 
         moveToCoordinates(110, -1, -1); 
         //rotate(90);
-        InitialPosition();
+        // InitialPosition();
       
       //Move front face piece # 3 
           //prepare claw position and pickup from source
@@ -386,7 +386,7 @@ void loop() {
           moveToCoordinates(-1, 84, -1);  
           moveToCoordinates(60, -1, -1); 
           moveToCoordinates(-1, -1, 87); 
-          moveToCoordinates(-1, 101, -1);
+          moveToCoordinates(-1, 103, -1);
           clawClose();
 
           //move piece to destination 
@@ -405,20 +405,18 @@ void loop() {
         // moveToCoordinates(90, -1, -1); 
         // rotate(90);
 
-        InitialPosition();
-/*
+        // InitialPosition();
+
         //Go back to initial position 
         longDelay();
         InitialPosition();
         //mark the object to be good
         showGreenSignal();
-
-*/
        
-      // } else if (counter >= 4){
-      //   //Reset
-      //   counter=0;
-      // }
+      } else if (counter >= 4){
+        //Reset
+        counter=0;
+      }
     isPressed=false;
     }
 

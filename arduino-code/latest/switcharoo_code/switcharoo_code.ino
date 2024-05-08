@@ -393,7 +393,7 @@ void loop() {
           moveToCoordinates(-1, -1, 110); 
           moveToCoordinates(-1, 90, -1); 
           rotate(0);
-          moveToCoordinates(142, -1, -1); 
+          moveToCoordinates(147, -1, -1); 
           moveToCoordinates(-1, 71, -1); 
           moveToCoordinates(-1, -1, 71); 
 

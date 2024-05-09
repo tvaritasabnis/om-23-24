@@ -12,6 +12,7 @@ void rotate(int degree);
 void moveServo(Servo s, int degree);
 void shortDelay();
 void longDelay();
+void hoMaharaja();
 
 //************************************
 //user defined variables
@@ -166,14 +167,6 @@ void showGreenSignal(){
   lightBlinkDelay();
   digitalWrite(greenLightPin, LOW);
   lightBlinkDelay();
-  // digitalWrite(greenLightPin, HIGH);
-  // lightBlinkDelay();
-  // digitalWrite(greenLightPin, LOW);
-  // lightBlinkDelay();
-  // digitalWrite(greenLightPin, HIGH);
-  // lightBlinkDelay();
-  // digitalWrite(greenLightPin, LOW);
-  // lightBlinkDelay();
   digitalWrite(greenLightPin, HIGH);
   longDelay();
   digitalWrite(greenLightPin, LOW);
@@ -187,14 +180,6 @@ void showRedSignal(){
   lightBlinkDelay();
   digitalWrite(redLightPin, LOW);
   lightBlinkDelay();
-  // digitalWrite(redLightPin, HIGH);
-  // lightBlinkDelay();
-  // digitalWrite(redLightPin, LOW);
-  // lightBlinkDelay();
-  // digitalWrite(redLightPin, HIGH);
-  // lightBlinkDelay();
-  // digitalWrite(redLightPin, LOW);
-  // lightBlinkDelay();
   digitalWrite(redLightPin, HIGH);
   longDelay();
   digitalWrite(redLightPin, LOW);
@@ -212,33 +197,6 @@ void moveToCoordinates(int leftRight, int upDown, int frontBack) {
   //delay(500);  // Adjust delay as needed for movement completion
 }
 
-void runDemo(){
-    //Move all 10 to 170 and get back to 90 degree one by one
-    moveLeftRight(10);
-    shortDelay();
-    moveLeftRight(170);
-    shortDelay();
-    moveLeftRight(80);
-
-    moveFrontBack(85);
-    shortDelay();
-    moveFrontBack(95);
-    shortDelay();
-    moveFrontBack(90);
-
-    moveUpDown(75);
-    shortDelay();
-    moveUpDown(110);
-    shortDelay();
-    moveUpDown(90);
-
-    rotate(45);
-    shortDelay();
-    rotate(135);
-    shortDelay();
-    rotate(90);
-}
-
 
 //************************************
 //Main Program
@@ -246,7 +204,9 @@ void runDemo(){
 
 
 void setup() {
+  
   // put your setup code here, to run once:
+  Serial.println(" switcharoo coming to life ... ");
   Serial.begin(9600);
   //Attach Servo motors
   AttachServos();
@@ -254,7 +214,7 @@ void setup() {
   //Set Initial Positions
   InitialPosition();
 
-  Serial.println(" All components successfully initialized");
+  Serial.println(" All components successfully initialized - switcharoo alive");
 }
 
 /*servo motor behavior
@@ -263,61 +223,42 @@ void setup() {
         //up 90->0 , down 90 -> 180
         //front 90 ->0, back 90 -> 180
 */
+
+//wrapper method to just show movement and give a green signal
+void hoMaharaja(){
+    moveToCoordinates(60, 80, -1); //Do nothing with the pieces. Show arm movement
+    shortDelay();
+    moveToCoordinates(80, 90, -1); //Do nothing with the pieces. Show arm movement
+    longDelay();
+    showGreenSignal();
+}
+
 void loop() {
   // put your main code here, to run repeatedly:  
-
-  ////####### Uncomment this to run Demo mode ######
-  //if(isGoalAchieved == false){
-      // readInitialPosition();
-      // runDemo();
-  //   isGoalAchieved=true;
-  //   // Serial.println("Finished working on motor .. counter = " + counter);
-  // }else{
-  //   isGoalAchieved=true;
-  //   Serial.println("Finished working on motor .. Goal achieved - XXX");
-  //   longDelay();
-  // }
-  ////####### End Demo ##########################
-
-
     // read the state of the pushbutton value:
     switchState = digitalRead(switchButtonPin);
     //  Serial.println( switchState );
   
     if (switchState == HIGH){
       counter++;
-      // counter=3; //temp code
       shortDelay();
       isPressed=true;
     }
 
     if (isPressed){ 
-
       // Serial.println( counter ); 
       if (counter == 1){
-        moveToCoordinates(60, 80, -1); //Do nothing with the pieces. Show arm movement
-        shortDelay();
-        moveToCoordinates(80, 90, -1); //Do nothing with the pieces. Show arm movement
-        longDelay();
-        showGreenSignal();
+        hoMaharaja();
       }else if (counter == 2){
+        hoMaharaja();        
+      }else if (counter == 3){
+        //First identify the object to be bad
         moveToCoordinates(60, 80, -1); //Do nothing with the pieces. Show arm movement
         shortDelay();
         moveToCoordinates(80, 90, -1); //Do nothing with the pieces. Show arm movement
-        longDelay();
-        showGreenSignal();
-        moveToCoordinates(-1, -1, 110); //Do nothing with the pieces. Show arm movement
-
-      }else if (counter == 3){
-
-        //First identify the object to be bad
-        moveToCoordinates(100, 80, 100); //Do nothing with the pieces. Show arm movement
-        shortDelay();
-        moveToCoordinates(90, 90, 90); //Do nothing with the pieces. Show arm movement
         longDelay();
         showRedSignal();
         longDelay();
-
 
        //Now start fixing (disassemble and reassemble) the object
        //Move piece 1 (cap piece)
@@ -348,14 +289,11 @@ void loop() {
            moveToCoordinates(-1, 90, -1); 
            moveToCoordinates(-1, -1, 120); 
            
-        //InitialPosition(); // consider removing this - to optimize the code
-
         //Move piece 2 (back of face)
           //prepare claw position and pickup from source
           clawOpen();
           rotate(170);
           moveToCoordinates(-1, -1, 100); 
-          //moveToCoordinates(-1, 90, -1); 
           moveToCoordinates(34, -1, -1); 
           moveToCoordinates(-1, 100, -1); 
           moveToCoordinates(-1, -1, 83); 
@@ -374,9 +312,7 @@ void loop() {
         moveToCoordinates(-1, -1, 117); 
         moveToCoordinates(-1, 113, -1); 
         moveToCoordinates(110, -1, -1); 
-        //rotate(90);
-        // InitialPosition();
-      
+              
       //Move front face piece # 3 
           //prepare claw position and pickup from source
           clawOpen();          
@@ -402,11 +338,7 @@ void loop() {
         //Reset arm to move it out of the way 
         moveToCoordinates(-1, -1, 110); 
         moveToCoordinates(-1, 90, -1); 
-        // moveToCoordinates(90, -1, -1); 
-        // rotate(90);
-
-        // InitialPosition();
-
+        
         //Go back to initial position 
         longDelay();
         InitialPosition();
@@ -420,43 +352,4 @@ void loop() {
     isPressed=false;
     }
 
-
-  
-  // // read the state of the pushbutton value:
-  // switchState = digitalRead(switchButtonPin);
-  // //  Serial.println( switchState );
-  
-  // if (switchState == HIGH){
-  //   counter++;
-  //   delay(300);
-  //   isPressed=true;
-  // }
-  // //  Serial.println( "Press Count : " + press ); 
-  // //delay(300);
-  // if (isPressed){ 
-  //   Serial.println( counter ); 
-  //   if (counter == 1){
-  //     moveLeft(sUpDown,10);
-  //     moveRight(sLeftRight,10);
-  //     moveUp(wristMotor,10);
-  //     moveDown(sClaw,10);
-  //   }else if (counter == 2){
-  //     moveLeft(sUpDown,40);
-  //     moveRight(sLeftRight,40);
-  //     moveUp(wristMotor,40);
-  //     moveDown(sClaw,40);
-  //   }else if (counter == 3){
-  //     moveLeft(sUpDown,90);
-  //     moveRight(sLeftRight,90);
-  //     moveUp(wristMotor,90);
-  //     moveDown(sClaw,90);
-  //   }else if (counter >= 4){
-  //     moveLeft(sUpDown,0);
-  //     moveRight(sLeftRight,0);
-  //     moveUp(wristMotor,0);
-  //     moveDown(sClaw,0);
-  //     counter=0;
-  //   }
-  //   isPressed=false;
-  // }
 }

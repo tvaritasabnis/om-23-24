@@ -53,7 +53,7 @@ bool isGoalAchieved=false;
 int SHORT_DELAY=300;
 int LONG_DELAY=1000;
 int INITIAL_POS=90;
-int SERVO_SPEED_DELAY=40; //delay to control servo speed
+int SERVO_SPEED_DELAY=50; //delay to control servo speed
 
 //************************************
 //user defined function definitions
@@ -247,19 +247,20 @@ void loop() {
 
     if (isPressed){ 
       // Serial.println( counter ); 
-      if (counter == 1){
-        hoMaharaja();
-      }else if (counter == 2){
-        hoMaharaja();        
-      }else if (counter == 3){
+      // if (counter == 1){
+      //   hoMaharaja();
+      // }else if (counter == 2){
+      //   hoMaharaja();        
+      // }else if (counter == 3){
         //First identify the object to be bad
+/*
         moveToCoordinates(60, 80, -1); //Do nothing with the pieces. Show arm movement
         shortDelay();
         moveToCoordinates(80, 90, -1); //Do nothing with the pieces. Show arm movement
         longDelay();
         showRedSignal();
         longDelay();
-
+*/
        //Now start fixing (disassemble and reassemble) the object
        //Move piece 1 (cap piece)
       
@@ -277,29 +278,30 @@ void loop() {
            moveToCoordinates(-1, -1, 95); 
            moveToCoordinates(165, -1, -1); 
           //  rotate(0);
-           moveToCoordinates(-1, -1, 100); 
-           moveToCoordinates(-1, 115, -1); 
+           moveToCoordinates(-1, -1, 105); 
+           moveToCoordinates(-1, 119, -1);
+ 
            clawOpen();
            
            /* // Rajnikant style of moving piece down
            moveToCoordinates(-1, -1, 110); //dont go 
-           moveToCoordinates(-1, 85, -1); 
-           moveToCoordinates(-1, -1, 83); 
+           moveToCoordinates(-1, 90, -1); 
+           moveToCoordinates(-1, -1, 81); 
            moveToCoordinates(-1, 105, -1); 
            */
 
            //move the claw out of the way 
-           moveToCoordinates(-1, -1, 120); 
-           moveToCoordinates(-1, 90, -1); 
-           
+           moveToCoordinates(-1, -1, 112); 
+           moveToCoordinates(-1, 95, -1); 
+          
         //Move piece 2 (back of face)
           //prepare claw position and pickup from source
           clawOpen();
           rotate(170);
           moveToCoordinates(-1, -1, 100); 
-          moveToCoordinates(33, -1, -1); 
-          moveToCoordinates(-1, 100, -1); 
-          moveToCoordinates(-1, -1, 84); 
+          moveToCoordinates(32, -1, -1); 
+          moveToCoordinates(-1, 104, -1); 
+          moveToCoordinates(-1, -1, 88); 
           clawClose();
 
           //move piece to destination 
@@ -307,15 +309,15 @@ void loop() {
           moveToCoordinates(-1, 80, -1); 
           rotate(0);
           moveToCoordinates(175, -1, -1); 
-          moveToCoordinates(-1, 73, -1); 
-          moveToCoordinates(-1, -1, 79); 
+          moveToCoordinates(-1, 90, -1); 
+          moveToCoordinates(-1, -1, 85); 
           clawOpen();
 
         //Reset arm to move it out of the way 
-        moveToCoordinates(-1, -1, 117); 
-        moveToCoordinates(-1, 113, -1); 
+        moveToCoordinates(-1, -1, 115); 
+        moveToCoordinates(-1, 95, -1); 
         moveToCoordinates(110, -1, -1); 
-              
+ /*             
       //Move front face piece # 3 
           //prepare claw position and pickup from source
           clawOpen();          
@@ -348,10 +350,12 @@ void loop() {
         //mark the object to be good
         showGreenSignal();
        
-      } else if (counter >= 4){
-        //Reset
-        counter=0;
-      }
+      // } else if (counter >= 4){
+      //   //Reset
+      //   counter=0;
+      //}
+*/
+InitialPosition();
     isPressed=false;
     }
 

@@ -279,16 +279,18 @@ void loop() {
            moveToCoordinates(165, -1, -1); 
           //  rotate(0);
            moveToCoordinates(-1, -1, 105); 
-           moveToCoordinates(-1, 119, -1);
+           moveToCoordinates(-1, 117, -1);
  
            clawOpen();
            
-           /* // Rajnikant style of moving piece down
+           SERVO_SPEED_DELAY = 80;
+           // Rajnikant style of moving piece down
            moveToCoordinates(-1, -1, 110); //dont go 
            moveToCoordinates(-1, 90, -1); 
-           moveToCoordinates(-1, -1, 81); 
-           moveToCoordinates(-1, 105, -1); 
-           */
+           moveToCoordinates(-1, -1, 80); 
+           moveToCoordinates(-1, 100, -1); 
+           
+           SERVO_SPEED_DELAY = 50;
 
            //move the claw out of the way 
            moveToCoordinates(-1, -1, 112); 

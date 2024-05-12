@@ -53,7 +53,7 @@ bool isGoalAchieved=false;
 int SHORT_DELAY=300;
 int LONG_DELAY=1000;
 int INITIAL_POS=90;
-int SERVO_SPEED_DELAY=80; //delay to control servo speed
+int SERVO_SPEED_DELAY= 40; //delay to control servo speed
 
 //************************************
 //user defined function definitions
@@ -72,7 +72,7 @@ void clawClose(){
 /* This function is hardcoded to always open the claw.*/
 void clawOpen(){
   Serial.println(" Opening the claw ");
-  moveServo(sClaw, 50);
+  moveServo(sClaw, 45);
   shortDelay();
 }
 
@@ -277,6 +277,7 @@ void loop() {
            moveToCoordinates(-1, -1, 95); 
            moveToCoordinates(128, -1, -1); 
           //  rotate(0);
+          SERVO_SPEED_DELAY = 80;
            moveToCoordinates(-1, -1, 102); 
            moveToCoordinates(-1, 117, -1);
  
@@ -290,7 +291,7 @@ void loop() {
            moveToCoordinates(-1, -1, 80); 
            moveToCoordinates(-1, 104, -1); 
            
-           //SERVO_SPEED_DELAY = 50;
+           SERVO_SPEED_DELAY = 40;
 
            //move the claw out of the way 
            moveToCoordinates(-1, -1, 112); 
@@ -302,8 +303,8 @@ void loop() {
           rotate(170);
           moveToCoordinates(-1, -1, 100); 
           moveToCoordinates(49, -1, -1); 
-          moveToCoordinates(-1, 106, -1); 
-          moveToCoordinates(-1, -1, 89); 
+          moveToCoordinates(-1, 105, -1); 
+          moveToCoordinates(-1, -1, 88); 
           clawClose();
 
           //move piece to destination 
@@ -311,13 +312,14 @@ void loop() {
           moveToCoordinates(-1, 80, -1); 
           rotate(4);
           moveToCoordinates(138, -1, -1); 
-          moveToCoordinates(-1, 90, -1); 
+          SERVO_SPEED_DELAY = 80;
+          moveToCoordinates(-1, 98, -1); 
           moveToCoordinates(-1, -1, 85); 
           clawOpen();
-
         //Reset arm to move it out of the way 
         moveToCoordinates(-1, -1, 115); 
         moveToCoordinates(-1, 80, -1); 
+          SERVO_SPEED_DELAY = 40;
         moveToCoordinates(110, -1, -1); 
         
       //Move front face piece # 3 
@@ -327,7 +329,7 @@ void loop() {
           
           moveToCoordinates(-1, -1, 110); 
           moveToCoordinates(-1, 84, -1);  
-          moveToCoordinates(64, -1, -1); 
+          moveToCoordinates(65, -1, -1); 
           moveToCoordinates(-1, -1, 88); 
           moveToCoordinates(-1, 103, -1);
           clawClose();
@@ -338,6 +340,7 @@ void loop() {
           rotate(0);
           moveToCoordinates(120, -1, -1); 
           //moveToCoordinates(-1, 61, -1); 
+          SERVO_SPEED_DELAY = 80;
           moveToCoordinates(-1, -1, 74); 
 
           clawOpen();
@@ -345,7 +348,8 @@ void loop() {
         //Reset arm to move it out of the way 
         moveToCoordinates(-1, -1, 110); 
         moveToCoordinates(-1, 90, -1); 
-        
+        SERVO_SPEED_DELAY = 40;
+
         //Go back to initial position 
         longDelay();
         InitialPosition();

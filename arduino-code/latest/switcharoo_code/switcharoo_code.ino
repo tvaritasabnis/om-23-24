@@ -53,7 +53,7 @@ bool isGoalAchieved=false;
 int SHORT_DELAY=300;
 int LONG_DELAY=1000;
 int INITIAL_POS=90;
-int SERVO_SPEED_DELAY=50; //delay to control servo speed
+int SERVO_SPEED_DELAY=80; //delay to control servo speed
 
 //************************************
 //user defined function definitions
@@ -263,63 +263,64 @@ void loop() {
 */
        //Now start fixing (disassemble and reassemble) the object
        //Move piece 1 (cap piece)
-      
+  /*    
           //prepare claw position and pickup from source
           clawOpen();          
           rotate(175);          
           moveToCoordinates(-1, -1, 100); 
-          moveToCoordinates(-1, 68, -1); 
-          moveToCoordinates(55, -1, -1); 
-          moveToCoordinates(-1, -1, 78); 
+          moveToCoordinates(-1, 67, -1); 
+          moveToCoordinates(61, -1, -1); 
+          moveToCoordinates(-1, -1, 76); 
           clawClose();
   
           // //move piece to destination 
            moveToCoordinates(-1, 60, -1);            
            moveToCoordinates(-1, -1, 95); 
-           moveToCoordinates(165, -1, -1); 
+           moveToCoordinates(128, -1, -1); 
           //  rotate(0);
-           moveToCoordinates(-1, -1, 105); 
+           moveToCoordinates(-1, -1, 102); 
            moveToCoordinates(-1, 117, -1);
  
            clawOpen();
            
-           SERVO_SPEED_DELAY = 80;
+           //SERVO_SPEED_DELAY = 80;
            // Rajnikant style of moving piece down
-           moveToCoordinates(-1, -1, 110); //dont go 
+           moveToCoordinates(-1, -1, 110);  
            moveToCoordinates(-1, 90, -1); 
+           moveToCoordinates(121, -1, -1);  
            moveToCoordinates(-1, -1, 80); 
-           moveToCoordinates(-1, 100, -1); 
+           moveToCoordinates(-1, 104, -1); 
            
-           SERVO_SPEED_DELAY = 50;
+           //SERVO_SPEED_DELAY = 50;
 
            //move the claw out of the way 
            moveToCoordinates(-1, -1, 112); 
            moveToCoordinates(-1, 95, -1); 
-          
+   
         //Move piece 2 (back of face)
           //prepare claw position and pickup from source
           clawOpen();
           rotate(170);
           moveToCoordinates(-1, -1, 100); 
-          moveToCoordinates(32, -1, -1); 
-          moveToCoordinates(-1, 104, -1); 
-          moveToCoordinates(-1, -1, 88); 
+          moveToCoordinates(49, -1, -1); 
+          moveToCoordinates(-1, 106, -1); 
+          moveToCoordinates(-1, -1, 89); 
           clawClose();
 
           //move piece to destination 
           moveToCoordinates(-1, -1, 115); 
           moveToCoordinates(-1, 80, -1); 
-          rotate(0);
-          moveToCoordinates(175, -1, -1); 
+          rotate(4);
+          moveToCoordinates(138, -1, -1); 
           moveToCoordinates(-1, 90, -1); 
           moveToCoordinates(-1, -1, 85); 
           clawOpen();
 
         //Reset arm to move it out of the way 
         moveToCoordinates(-1, -1, 115); 
-        moveToCoordinates(-1, 95, -1); 
+        moveToCoordinates(-1, 80, -1); 
         moveToCoordinates(110, -1, -1); 
- /*             
+   */      
       //Move front face piece # 3 
           //prepare claw position and pickup from source
           clawOpen();          
@@ -356,7 +357,7 @@ void loop() {
       //   //Reset
       //   counter=0;
       //}
-*/
+
 InitialPosition();
     isPressed=false;
     }

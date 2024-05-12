@@ -246,24 +246,23 @@ void loop() {
     }
 
     if (isPressed){ 
-      // Serial.println( counter ); 
-      // if (counter == 1){
-      //   hoMaharaja();
-      // }else if (counter == 2){
-      //   hoMaharaja();        
-      // }else if (counter == 3){
-        //First identify the object to be bad
-/*
-        moveToCoordinates(60, 80, -1); //Do nothing with the pieces. Show arm movement
-        shortDelay();
-        moveToCoordinates(80, 90, -1); //Do nothing with the pieces. Show arm movement
-        longDelay();
-        showRedSignal();
-        longDelay();
-*/
+      if (counter == 1){
+        hoMaharaja();
+      }else if (counter == 2){
+        hoMaharaja();        
+      }else if (counter == 3){
+        // First identify the object to be bad
+
+      moveToCoordinates(60, 80, -1); //Do nothing with the pieces. Show arm movement
+      shortDelay();
+      moveToCoordinates(80, 90, -1); //Do nothing with the pieces. Show arm movement
+      longDelay();
+      showRedSignal();
+      longDelay();
+
        //Now start fixing (disassemble and reassemble) the object
        //Move piece 1 (cap piece)
-  /*    
+    
           //prepare claw position and pickup from source
           clawOpen();          
           rotate(175);          
@@ -320,7 +319,7 @@ void loop() {
         moveToCoordinates(-1, -1, 115); 
         moveToCoordinates(-1, 80, -1); 
         moveToCoordinates(110, -1, -1); 
-   */      
+        
       //Move front face piece # 3 
           //prepare claw position and pickup from source
           clawOpen();          
@@ -328,8 +327,8 @@ void loop() {
           
           moveToCoordinates(-1, -1, 110); 
           moveToCoordinates(-1, 84, -1);  
-          moveToCoordinates(60, -1, -1); 
-          moveToCoordinates(-1, -1, 87); 
+          moveToCoordinates(64, -1, -1); 
+          moveToCoordinates(-1, -1, 88); 
           moveToCoordinates(-1, 103, -1);
           clawClose();
 
@@ -337,9 +336,9 @@ void loop() {
           moveToCoordinates(-1, -1, 110); 
           moveToCoordinates(-1, 90, -1); 
           rotate(0);
-          moveToCoordinates(147, -1, -1); 
-          moveToCoordinates(-1, 75, -1); 
-          moveToCoordinates(-1, -1, 67); 
+          moveToCoordinates(120, -1, -1); 
+          //moveToCoordinates(-1, 61, -1); 
+          moveToCoordinates(-1, -1, 74); 
 
           clawOpen();
 
@@ -353,13 +352,11 @@ void loop() {
         //mark the object to be good
         showGreenSignal();
        
-      // } else if (counter >= 4){
-      //   //Reset
-      //   counter=0;
-      //}
+      } else if (counter >= 4){
+        //Reset
+        counter=0;
+      }
 
-InitialPosition();
     isPressed=false;
     }
-
 }
